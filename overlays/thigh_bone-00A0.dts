@@ -10,73 +10,134 @@
 /plugin/;
 
 / {
-	compatible = "ti,beaglebone", "ti,beaglebone-black";
+  compatible = "ti,beaglebone", "ti,beaglebone-black";
 
-	/* identification */
-	part-number = "thigh_bone";
-	version = "00A0";
+  /* identification */
+  part-number = "thigh_bone";
+  version = "00A0";
 
-	/* state the resources this cape uses */
-	exclusive-use =
-		/* the pin header uses */
-		"P8.19",		/* pwm: ehrpwm2A */
-		"P8.13",		/* pwm: ehrpwm2B */
-		/* the hardware IP uses */
-		"ehrpwm2A",
-		"ehrpwm2B";
+  /* state the resources this cape uses */
+  exclusive-use =
+    /* the pin header uses */
+    "P8.19",    /* pwm: ehrpwm2A */
+    "P8.13",    /* pwm: ehrpwm2B */
+    "P9.22",    /* pwm: ehrpwm0A */
+    "P9.21",    /* pwm: ehrpwm0B */
+    
+    /* the hardware IP uses */
+    "ehrpwm2A",
+    "ehrpwm2B",
+    "ehrpwm0A",
+    "ehrpwm0B";
 
-	fragment@0 {
-		target = <&am33xx_pinmux>;
-		__overlay__ {
-			pwm_P8_19: pinmux_pwm_P8_19_pins {
-				pinctrl-single,pins = <0x020  0x4>; /* P8_19 (ZCZ ball U10) | MODE 4 */
-			};
-		};
-	};
+  fragment@0 {
+    target = <&am33xx_pinmux>;
+    __overlay__ {
+      pwm_P8_19: pinmux_pwm_P8_19_pins {
+        pinctrl-single,pins = <0x020  0x4>; /* P8_19 (ZCZ ball U10) | MODE 4 */
+      };
+    };
+  };
 
-	fragment@1 {
-		target = <&ocp>;
-		__overlay__ {
-			pwm_test_P8_19 {
-				compatible	= "pwm_test";
-				pwms 		= <&ehrpwm2 0 5000000 1>;
-				pwm-names 	= "PWM_P8_19";
+  fragment@1 {
+    target = <&ocp>;
+    __overlay__ {
+      pwm_test_P8_19 {
+        compatible  = "pwm_test";
+        pwms    = <&ehrpwm2 0 5000000 1>;
+        pwm-names   = "PWM_P8_19";
 
-				pinctrl-names	= "default";
-				pinctrl-0	= <&pwm_P8_19>;
+        pinctrl-names = "default";
+        pinctrl-0 = <&pwm_P8_19>;
 
-				enabled		= <1>;
-				duty		= <0>;
-				status 		= "okay";
-			};
-		};
-	};
+        enabled   = <1>;
+        duty    = <5000000>;
+        status    = "okay";
+      };
+    };
+  };
 
-	fragment@2 {
-		target = <&am33xx_pinmux>;
-		__overlay__ {
-			pwm_P8_13: pinmux_pwm_P8_13_pins {
-				pinctrl-single,pins = <0x024  0x4>; /* P8_13 (ZCZ ball T10) | MODE 4 */
-			};
-		};
-	};
+  fragment@2 {
+    target = <&am33xx_pinmux>;
+    __overlay__ {
+      pwm_P8_13: pinmux_pwm_P8_13_pins {
+        pinctrl-single,pins = <0x024  0x4>; /* P8_13 (ZCZ ball T10) | MODE 4 */
+      };
+    };
+  };
 
-	fragment@3 {
-		target = <&ocp>;
-		__overlay__ {
-			pwm_test_P8_13 {
-				compatible	= "pwm_test";
-				pwms 		= <&ehrpwm2 1 5000000 1>;
-				pwm-names 	= "PWM_P8_13";
+  fragment@3 {
+    target = <&ocp>;
+    __overlay__ {
+      pwm_test_P8_13 {
+        compatible  = "pwm_test";
+        pwms    = <&ehrpwm2 1 5000000 1>;
+        pwm-names   = "PWM_P8_13";
 
-				pinctrl-names	= "default";
-				pinctrl-0	= <&pwm_P8_13>;
+        pinctrl-names = "default";
+        pinctrl-0 = <&pwm_P8_13>;
 
-				enabled		= <1>;
-				duty		= <0>;
-				status 		= "okay";
-			};
-		};
-	};
+        enabled   = <1>;
+        duty    = <5000000>;
+        status    = "okay";
+      };
+    };
+  };
+
+
+
+  fragment@4 {
+    target = <&am33xx_pinmux>;
+    __overlay__ {
+      pwm_P9_21: pinmux_pwm_P9_21_pins {
+        pinctrl-single,pins = <0x154  0x3>; /* P9_21 (ZCZ ball V17) | MODE 3 */
+      };
+    };
+  };
+
+  fragment@5 {
+    target = <&ocp>;
+    __overlay__ {
+      pwm_test_P9_21 {
+        compatible  = "pwm_test";
+        pwms    = <&ehrpwm0 1 5000000 1>;
+        pwm-names   = "PWM_P9_21";
+
+        pinctrl-names = "default";
+        pinctrl-0 = <&pwm_P9_21>;
+
+        enabled   = <1>;
+        duty    = <5000000>;
+        status    = "okay";
+      };
+    };
+  };
+
+  fragment@6 {
+    target = <&am33xx_pinmux>;
+    __overlay__ {
+      pwm_P9_22: pinmux_pwm_P9_22_pins {
+        pinctrl-single,pins = <0x150  0x3>; /* P9_22 (ZCZ ball A17) | MODE 3 */
+      };
+    };
+  };
+
+  fragment@7 {
+    target = <&ocp>;
+    __overlay__ {
+      pwm_test_P9_22 {
+        compatible  = "pwm_test";
+        pwms    = <&ehrpwm0 0 5000000 1>;
+        pwm-names   = "PWM_P9_22";
+
+        pinctrl-names = "default";
+        pinctrl-0 = <&pwm_P9_22>;
+
+        enabled   = <1>;
+        duty    = <5000000>;
+        status    = "okay";
+      };
+    };
+  };
 
 };
