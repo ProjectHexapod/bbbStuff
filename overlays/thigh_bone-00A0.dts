@@ -19,16 +19,16 @@
   /* state the resources this cape uses */
   exclusive-use =
     /* the pin header uses */
-    "P8.19",    /* pwm: ehrpwm2A */
     "P8.13",    /* pwm: ehrpwm2B */
-    "P9.22",    /* pwm: ehrpwm0A */
+    "P8.19",    /* pwm: ehrpwm2A */
     "P9.21",    /* pwm: ehrpwm0B */
+    "P9.22",    /* pwm: ehrpwm0A */
     
     /* the hardware IP uses */
-    "ehrpwm2A",
-    "ehrpwm2B",
     "ehrpwm0A",
-    "ehrpwm0B";
+    "ehrpwm0B",
+    "ehrpwm2A",
+    "ehrpwm2B";
 
   fragment@0 {
     target = <&am33xx_pinmux>;
