@@ -56,6 +56,6 @@ if __name__ == "__main__":
   import signal
   signal.signal(signal.SIGINT, lambda a,b: stopEverythingAndQuit())
   signal.signal(signal.SIGABRT, lambda a,b: stopEverythingAndQuit())
-  signal.signal(signal.SIGKILL, lambda a,b: stopEverythingAndQuit())
+  # signal.signal(signal.SIGKILL, lambda a,b: stopEverythingAndQuit())
   signal.signal(signal.SIGQUIT, lambda a,b: stopEverythingAndQuit())
   main()
