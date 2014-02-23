@@ -31,7 +31,7 @@ def mapControlToPwmPair(control):
   control = clamp(control)
   mag = 1. - abs(control)  # the 1 - here is because pwm duty 0 corresponds to full speed instead of stop
   result = mag * PWM_PERIOD * .8  + PWM_PERIOD * .2
-  return (PWM_PERIOD, result) if control > 0 else (result, PWM_PERIOD)
+  return (PWM_PERIOD, int(result)) if control > 0 else (int(result), PWM_PERIOD)
 
 def executePwmPair(pair):
   writePwm("P9_22.13", pair[0])
