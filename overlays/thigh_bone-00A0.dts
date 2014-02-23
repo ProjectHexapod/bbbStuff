@@ -23,6 +23,9 @@
     "P8.19",    /* pwm: ehrpwm2A */
     "P9.21",    /* pwm: ehrpwm0B */
     "P9.22",    /* pwm: ehrpwm0A */
+    "P9.36",    /* AIN5 */
+    "P9.38",    /* AIN3 */
+
     
     /* the hardware IP uses */
     "ehrpwm0A",
@@ -136,6 +139,36 @@
         enabled   = <1>;
         duty    = <5000000>;
         status    = "okay";
+      };
+    };
+  };
+
+  fragment@8 {
+    target = <&ocp>;
+    __overlay__ {
+      /* avoid stupid warning */
+      #address-cells = <1>;
+      #size-cells = <1>;
+
+      tscadc {
+        compatible = "ti,ti-tscadc";
+        reg = <0x44e0d000 0x1000>;
+
+        interrupt-parent = <&intc>;
+        interrupts = <16>;
+        ti,hwmods = "adc_tsc";
+        status = "okay";
+
+        adc {
+          ti,adc-channels = <3 5>;
+        };
+      };
+
+      test_helper: helper {
+        compatible = "bone-iio-helper";
+        vsense-name  = "AIN3", "AIN5";
+        vsense-scale = <100     100>;
+        status = "okay";
       };
     };
   };
