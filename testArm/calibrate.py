@@ -39,6 +39,7 @@ def main(args):
   ain3Range = emptyRange()
   aroot = args["--ainroot"]
   while state != DONE:
+    print ain3Range
     a3 = readAin(aroot, 3)
     ain3Range = growRange(ain3Range, a3)
     stateDispatch(args["--pwmroot"])
