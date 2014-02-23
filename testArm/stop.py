@@ -4,7 +4,7 @@
 
 def writePwm(name, val):
   with open("/sys/devices/ocp.3/pwm_test_%s/duty" % name, mode="w+") as f:
-    f.write(val)
+    f.write(str(val))
 
 def stopEverything():
   writePwm("P9_21.12", 5000000)
