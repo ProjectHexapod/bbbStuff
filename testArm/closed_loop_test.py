@@ -22,7 +22,7 @@ def getPercentageIntoRange(range, distance):
 
 def writePwm(name, val):
   with open("/sys/devices/ocp.3/pwm_test_%s/duty" % name, mode="w+") as f:
-    f.write(val)
+    f.write(str(val))
 
 def clamp(control):
   return min(1., max(-1., control))
