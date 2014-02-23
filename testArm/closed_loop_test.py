@@ -15,6 +15,7 @@ SENSOR_RANGE = (1420, 3570)  # these values came from a run of calibrate.py
 
 def readAin():
   raw = readInt("/sys/bus/iio/devices/iio:device0/in_voltage3_raw")
+  raw = clamp(SENSOR_RANGE, raw)
   return getPercentageIntoRange(SENSOR_RANGE, float(raw))
 
 def getPercentageIntoRange(range, distance):
@@ -24,11 +25,14 @@ def writePwm(name, val):
   with open("/sys/devices/ocp.3/pwm_test_%s/duty" % name, mode="w+") as f:
     f.write(str(val))
 
-def clamp(control):
-  return min(1., max(-1., control))
+def clamp(limits, control):
+  return min(limits[1], max(limits[0], control))
+
+def percentageClamp(control):
+  return clamp((-1., 1.), control)
 
 def mapControlToPwmPair(control):
-  control = clamp(control)
+  control = percentageClamp(control)
   mag = 1. - abs(control)  # the 1 - here is because pwm duty 0 corresponds to full speed instead of stop
   result = mag * PWM_PERIOD * .8  + PWM_PERIOD * .2
   return (PWM_PERIOD, int(result)) if control > 0 else (int(result), PWM_PERIOD)
