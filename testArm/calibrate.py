@@ -10,6 +10,9 @@ Options:
   --ainroot=<ainroot>   The location of the AIN raw files.  [default: /sys/bus/iio/devices/iio:device0]
   --pwmroot=<pwmroot>   The location of the PWM control directories.  [default: /sys/devices/ocp.3]
 """
+# AIN3 range:  Full Curl: 3570  Strait Arm:  1420
+#  P9.22 is extend
+#  P9.21 is curl
 
 import os
 import sys
@@ -71,13 +74,13 @@ def stop(proot):
     f.write("0")
 
 def startExtending(proot):
-  with open(os.path.join(proot, "pwm_test_P9_21.12/duty"), mode="w+") as f:
+  with open(os.path.join(proot, "pwm_test_P9_22.13/duty"), mode="w+") as f:
     f.write("2500000")
   with open(os.path.join(proot, "pwm_test_P9_16.15/duty"), mode="w+") as f:
     f.write("2500000")
 
 def startContracting(proot):
-  with open(os.path.join(proot, "pwm_test_P9_22.13/duty"), mode="w+") as f:
+  with open(os.path.join(proot, "pwm_test_P9_21.12/duty"), mode="w+") as f:
     f.write("2500000")
   with open(os.path.join(proot, "pwm_test_P9_14.14/duty"), mode="w+") as f:
     f.write("2500000")
