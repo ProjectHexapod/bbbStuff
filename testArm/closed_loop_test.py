@@ -34,6 +34,7 @@ def mapControlToPwmPair(control):
   return (PWM_PERIOD, int(result)) if control > 0 else (int(result), PWM_PERIOD)
 
 def executePwmPair(pair):
+  print "Commanding %s" % pair
   writePwm("P9_22.13", pair[0])
   writePwm("P9_21.12", pair[1])
 
@@ -54,4 +55,7 @@ def main():
 if __name__ == "__main__":
   import signal
   signal.signal(signal.SIGINT, lambda a,b: stopEverythingAndQuit())
+  signal.signal(signal.SIGABRT, lambda a,b: stopEverythingAndQuit())
+  signal.signal(signal.SIGKILL, lambda a,b: stopEverythingAndQuit())
+  signal.signal(signal.SIGQUIT, lambda a,b: stopEverythingAndQuit())
   main()
