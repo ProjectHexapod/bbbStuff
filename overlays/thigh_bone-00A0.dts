@@ -143,10 +143,9 @@
     };
   };
 
-  /*fragment@8 {
+  /* fragment@8 {
     target = <&ocp>;
     __overlay__ {
-      /* avoid stupid warning */
       #address-cells = <1>;
       #size-cells = <1>;
 
