@@ -34,7 +34,7 @@ def mapControlToPwmPair(control):
   return (PWM_PERIOD, int(result)) if control > 0 else (int(result), PWM_PERIOD)
 
 def executePwmPair(pair):
-  print "Commanding %s" % pair
+  print "Commanding %s" % str(pair)
   writePwm("P9_22.13", pair[0])
   writePwm("P9_21.12", pair[1])
 
