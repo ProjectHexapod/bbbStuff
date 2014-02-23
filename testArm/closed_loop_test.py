@@ -53,5 +53,5 @@ def main():
 
 if __name__ == "__main__":
   import signal
-  signal.signal(signal.SIGINT, lambda a,b: stopEverything())
+  signal.signal(signal.SIGINT, lambda a,b: stopEverythingAndQuit())
   main()

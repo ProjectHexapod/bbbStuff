@@ -12,5 +12,10 @@ def stopEverything():
   writePwm("P9_14.14", 0)
   writePwm("P9_16.15", 0)
 
+def stopEverythingAndQuit():
+  stopEverything()
+  import sys
+  sys.exit(0)
+
 if __name__ == "__main__":
   stopEverything()
