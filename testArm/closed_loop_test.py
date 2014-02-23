@@ -15,7 +15,7 @@ SENSOR_RANGE = (1420, 3570)  # these values came from a run of calibrate.py
 
 def readAin():
   raw = readInt("/sys/bus/iio/devices/iio:device0/in_voltage3_raw")
-  return getPercentageIntoRange(SENSOR_RANGE, raw)
+  return getPercentageIntoRange(SENSOR_RANGE, float(raw))
 
 def getPercentageIntoRange(range, distance):
   return (distance - range[0]) / (range[1] - range[0])
