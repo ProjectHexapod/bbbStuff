@@ -59,25 +59,25 @@ def stateDispatch(proot):
     state = DONE
 
 def stop(proot):
-  with open(os.path.join(proot, "pwm_test_P9_21.12")) as f:
+  with open(os.path.join(proot, "pwm_test_P9_21.12/duty")) as f:
     f.write("5000000")
-  with open(os.path.join(proot, "pwm_test_P9_16.15")) as f:
+  with open(os.path.join(proot, "pwm_test_P9_16.15/duty")) as f:
     f.write("0")
-  with open(os.path.join(proot, "pwm_test_P9_22.13")) as f:
+  with open(os.path.join(proot, "pwm_test_P9_22.13/duty")) as f:
     f.write("5000000")
-  with open(os.path.join(proot, "pwm_test_P9_14.14")) as f:
+  with open(os.path.join(proot, "pwm_test_P9_14.14/duty")) as f:
     f.write("0")
 
 def startExtending(proot):
-  with open(os.path.join(proot, "pwm_test_P9_21.12")) as f:
+  with open(os.path.join(proot, "pwm_test_P9_21.12/duty")) as f:
     f.write("2500000")
-  with open(os.path.join(proot, "pwm_test_P9_16.15")) as f:
+  with open(os.path.join(proot, "pwm_test_P9_16.15/duty")) as f:
     f.write("2500000")
 
 def startContracting(proot):
-  with open(os.path.join(proot, "pwm_test_P9_22.13")) as f:
+  with open(os.path.join(proot, "pwm_test_P9_22.13/duty")) as f:
     f.write("2500000")
-  with open(os.path.join(proot, "pwm_test_P9_14.14")) as f:
+  with open(os.path.join(proot, "pwm_test_P9_14.14/duty")) as f:
     f.write("2500000")
 
 if __name__ == "__main__":
