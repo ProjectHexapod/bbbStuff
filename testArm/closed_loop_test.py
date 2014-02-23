@@ -3,7 +3,7 @@
 """
 
 from pid import PIDController
-from stop import stopEverything
+from stop import stopEverythingAndQuit
 import time
 
 def readInt(filename):
