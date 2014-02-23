@@ -23,8 +23,8 @@
     "P8.19",    /* pwm: ehrpwm2A */
     "P9.21",    /* pwm: ehrpwm0B */
     "P9.22",    /* pwm: ehrpwm0A */
-    "P9.36",    /* AIN5 */
-    "P9.38",    /* AIN3 */
+    /*"P9.36",    /* AIN5 */
+    /*"P9.38",    /* AIN3 */
 
     
     /* the hardware IP uses */
@@ -143,7 +143,7 @@
     };
   };
 
-  fragment@8 {
+  /*fragment@8 {
     target = <&ocp>;
     __overlay__ {
       /* avoid stupid warning */
@@ -171,6 +171,6 @@
         status = "okay";
       };
     };
-  };
+  };*/
 
 };
