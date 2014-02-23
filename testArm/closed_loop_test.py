@@ -43,6 +43,7 @@ def main():
   lastTime = time.time()
   while True:
     reading = readAin()
+    print "Read: %s" % reading
     now = time.time()
     control = pid.update(.5, reading, now - lastTime)
     pair = mapControlToPwmPair(control)
