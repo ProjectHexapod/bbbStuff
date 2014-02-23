@@ -35,6 +35,7 @@ def readAin(root, pin):
     return int(f.read())
 
 def main(args):
+  global state
   ain3Range = emptyRange()
   aroot = args["--ainroot"]
   while state != DONE:
@@ -45,6 +46,7 @@ def main(args):
   print ain3Range
 
 def stateDispatch(proot):
+  global state
   if state == INIT:
     startExtending(proot)
     state = EXTEND
