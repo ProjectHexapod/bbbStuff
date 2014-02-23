@@ -40,7 +40,7 @@ def main(args):
   while state != DONE:
     a3 = readAin(aroot, 3)
     ain3Range = growRange(ain3Range, a3)
-    stateDispatch()
+    stateDispatch(args["--pwmroot"])
     time.sleep(10)
   print ain3Range
 
