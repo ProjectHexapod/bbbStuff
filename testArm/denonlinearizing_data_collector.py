@@ -60,9 +60,9 @@ if __name__ == "__main__":
   utilities.setupSignalHandlers()
   from docopt import docopt
   args = docopt(__doc__, version="Arm Calibration Script v0.1")
-  doSingleMotion(int(args["--pulse"])
-                 , args["--pwm"]
-                 , float(args["--frequency"])
-                 , float(args["--duration"])
-                 , "--silent" not in args or not args["--silent"])
+  print doSingleMotion(int(args["--pulse"])
+                       , args["--pwm"]
+                       , float(args["--frequency"])
+                       , float(args["--duration"])
+                       , "--silent" not in args or not args["--silent"])
   stopEverythingAndQuit()
