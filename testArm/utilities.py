@@ -2,6 +2,10 @@
 """
 """
 
+def readInt(filename):
+  with open(filename) as f:
+    return int(f.read())
+
 PWM_PERIOD = readInt("/sys/devices/ocp.3/pwm_test_P9_22.13/period")
 SENSOR_RANGE = (1420, 3570)  # these values came from a run of calibrate.py
 
@@ -20,10 +24,6 @@ def setupSignalHandlers():
   signal.signal(signal.SIGINT, lambda a,b: stopEverythingAndQuit())
   # signal.signal(signal.SIGKILL, lambda a,b: stopEverythingAndQuit())
   signal.signal(signal.SIGQUIT, lambda a,b: stopEverythingAndQuit())
-
-def readInt(filename):
-  with open(filename) as f:
-    return int(f.read())
 
 if __name__ == "__main__":
   pass

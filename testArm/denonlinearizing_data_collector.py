@@ -62,7 +62,7 @@ if __name__ == "__main__":
   args = docopt(__doc__, version="Arm Calibration Script v0.1")
   doSingleMotion(int(args["--pulse"])
                  , args["--pwm"]
-                 , int(args["--frequency"])
+                 , float(args["--frequency"])
                  , float(args["--duration"])
                  , "--silent" not in args or not args["--silent"])
   stopEverythingAndQuit()
