@@ -9,6 +9,9 @@ def readInt(filename):
 PWM_PERIOD = readInt("/sys/devices/ocp.3/pwm_test_P9_22.13/period")
 SENSOR_RANGE = (1420, 3570)  # these values came from a run of calibrate.py
 
+def clamp(limits, control):
+  return min(limits[1], max(limits[0], control))
+
 def readAin():
   raw = readInt("/sys/bus/iio/devices/iio:device0/in_voltage3_raw")
   raw = clamp(SENSOR_RANGE, raw)
