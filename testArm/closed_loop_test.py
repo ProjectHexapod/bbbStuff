@@ -12,9 +12,6 @@ def writePwm(name, val):
   with open("/sys/devices/ocp.3/pwm_test_%s/duty" % name, mode="w+") as f:
     f.write(str(val))
 
-def clamp(limits, control):
-  return min(limits[1], max(limits[0], control))
-
 def percentageClamp(control):
   return clamp((-1., 1.), control)
 
