@@ -61,7 +61,7 @@ def doParameterSweep(stepSize, pwmName, sampleFreq, runLength, returnLength, lou
   results = []
   for width in range(utilities.PWM_PERIOD, utilities.PWM_PERIOD/5, -stepSize):
     writePwm(otherPwm, 3000000)
-    writePwm("P9_16.15", 2000000)
+    writePwm("P9_16.15", 2000000)  # LED
     time.sleep(returnLength)
     stopEverything()
     dxdt = doSingleMotion(width, pwmName, sampleFreq, runLength, loud)

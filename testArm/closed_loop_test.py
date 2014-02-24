@@ -18,13 +18,15 @@ def percentageClamp(control):
 def mapControlToPwmPair(control):
   control = percentageClamp(control)
   mag = 1. - abs(control)  # the 1 - here is because pwm duty 0 corresponds to full speed instead of stop
-  result = mag * PWM_PERIOD * .8  + PWM_PERIOD * .2
+  result = mag * PWM_PERIOD * .8  + PWM_PERIOD * .2  # this is too naive
   return (PWM_PERIOD, int(result)) if control > 0 else (int(result), PWM_PERIOD)
 
 def executePwmPair(pair):
   print "Commanding %s" % str(pair)
   writePwm("P9_22.13", pair[0])
+  writePwm("P9_14.14", utilities.PWM_PERIOD - pair[0])  # LED
   writePwm("P9_21.12", pair[1])
+  writePwm("P9_16.15", utilities.PWM_PERIOD - pair[1])  # LED
 
 def main():
   pid = PIDController(1., 0, .1)
