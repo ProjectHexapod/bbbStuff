@@ -8,13 +8,15 @@ Usage:
   ./denonlinearizing_data_collector.py [options]
 
 Options:
-  -h, --help                             Show this help screen.
-  --version                              Show the version information.
-  -p=<pulse>, --pulse=<pulse>            Set the pulse width to sample.  [default: 4000000]
-  --pwm=<pwm>                            Set the PWM pin.  P9_21.12 or P9_22.13  [default: P9_21.12]
-  -f=<duration>, --frequency=<freq>      Set the feedback polling frequency in Hz.  [default: 100]
-  -d=<duration>, --duration=<duration>   Set the duration of the run.  [default: 2]
-  -s, --silent                           Supress printing the raw data.
+  -h, --help                              Show this help screen.
+  --version                               Show the version information.
+  -p=<pulse>, --pulse=<pulse>             Set the pulse width to sample.  [default: 4000000]
+  --pwm=<pwm>                             Set the PWM pin.  P9_21.12 or P9_22.13  [default: P9_21.12]
+  -f=<duration>, --frequency=<freq>       Set the feedback polling frequency in Hz.  [default: 100]
+  -d=<duration>, --duration=<duration>    Set the duration of the run.  [default: 2]
+  -r=<return>, --return=<return>          Set the return stroke duration.  [default: 2]
+  -q, --quiet                             Supress printing the raw data.
+  -s=<step>, --step=<step>                Sets the step size for the pulse sweep.  [default: 0]
 """
 
 from stop import *
@@ -54,15 +56,32 @@ def doSingleMotion(pulseWidth, pwmName, sampleFreq, runLength, loud=True):
 
   return (prevRead - initialRead) / (prevTime - initialTime)
 
+def doParameterSweep(stepSize, pwmName, sampleFreq, runLength, returnLength, loud=True):
+  otherPwm = "P9_21.12" if pwmName == "P9_22.13" else "P9_22.13"
+  results = []
+  for width in range(utilities.PWM_PERIOD, utilities.PWM_PERIOD/5, -stepSize):
+    writePwm(otherPwm, 3000000)
+    writePwm("P9_16.15", 2000000)
+    time.sleep(returnLength)
+    stopEverything()
+    dxdt = doSingleMotion(width, pwmName, sampleFreq, runLength, loud)
+    results.append((width, dxdt))
+  return results
 
 
 if __name__ == "__main__":
   utilities.setupSignalHandlers()
   from docopt import docopt
   args = docopt(__doc__, version="Arm Calibration Script v0.1")
-  print doSingleMotion(int(args["--pulse"])
-                       , args["--pwm"]
-                       , float(args["--frequency"])
-                       , float(args["--duration"])
-                       , "--silent" not in args or not args["--silent"])
+  step = int(args["--step"])
+  pulseWidth = int(args["--pulse"])
+  pwmPin = args["--pwm"]
+  frequency = float(args["--frequency"])
+  duration = float(args["--duration"])
+  returnDuration = float(args["--return"])
+  loud = "--quiet" not in args or not args["--quiet"]
+  if step:
+    print doParameterSweep(step, pwmPin, frequency, duration, returnDuration, loud)
+  else:
+    print doSingleMotion(pulseWidth, pwmPin, frequency, duration, loud)
   stopEverythingAndQuit()
