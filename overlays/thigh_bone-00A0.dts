@@ -24,8 +24,8 @@
     "P9.16",    /* pwm: ehrpwm1B  hooked up to the LED */
     "P9.21",    /* pwm: ehrpwm0B */
     "P9.22",    /* pwm: ehrpwm0A */
-    /*"P9.36",    /* AIN5 */
-    /*"P9.38",    /* AIN3 */
+    "P9.36",    /* AIN5 */
+    "P9.38",    /* AIN3 */
 
     
     /* the hardware IP uses */
@@ -255,7 +255,7 @@
     };
   };
 
-  /* fragment@20 {
+  fragment@20 {
     target = <&ocp>;
     __overlay__ {
       #address-cells = <1>;
@@ -282,6 +282,6 @@
         status = "okay";
       };
     };
-  };*/
+  };/**/
 
 };
