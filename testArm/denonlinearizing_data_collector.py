@@ -54,7 +54,8 @@ def doSingleMotion(pulseWidth, pwmName, sampleFreq, runLength, loud=True):
       print "%s, %s, %s" % (pwmName, pulseWidth, rate)
   stopEverything()
 
-  return (prevRead - initialRead) / (prevTime - initialTime)
+  elapsed = prevTime - initialTime
+  return (prevRead - initialRead) / elapsed if elapsed > 0 else 0.
 
 def doParameterSweep(stepSize, pwmName, sampleFreq, runLength, returnLength, loud=True):
   otherPwm = "P9_21.12" if pwmName == "P9_22.13" else "P9_22.13"
