@@ -1,0 +1,3 @@
+Firmware:
+  roll am33xx_pwm into thigh_bone
+  roll BB-ADC into thigh_bone
