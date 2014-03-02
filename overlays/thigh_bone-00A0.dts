@@ -29,6 +29,7 @@
 
     
     /* the hardware IP uses */
+    "tscadc",
     "ehrpwm0A",
     "ehrpwm0B",
     "ehrpwm1A",
