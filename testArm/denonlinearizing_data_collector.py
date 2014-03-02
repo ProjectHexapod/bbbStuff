@@ -10,9 +10,9 @@ Usage:
 Options:
   -h, --help                              Show this help screen.
   --version                               Show the version information.
-  -p=<pulse>, --pulse=<pulse>             Set the pulse width to sample.  [default: 4000000]
+  -p=<pulse>, --pulse=<pul                Set the pulse width to sample.  [default: 4000000]
   --pwm=<pwm>                             Set the PWM pin.  P9_21.12 or P9_22.13  [default: P9_21.12]
-  -f=<duration>, --frequency=<freq>       Set the feedback polling frequency in Hz.  [default: 100]
+  -f=<freq>, --frequency=<freq>           Set the feedback polling frequency in Hz.  [default: 100]
   -d=<duration>, --duration=<duration>    Set the duration of the run.  [default: 2]
   -r=<return>, --return=<return>          Set the return stroke duration.  [default: 2]
   -q, --quiet                             Supress printing the raw data.
