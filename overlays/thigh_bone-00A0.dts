@@ -24,8 +24,13 @@
     "P9.16",    /* pwm: ehrpwm1B  hooked up to the LED */
     "P9.21",    /* pwm: ehrpwm0B */
     "P9.22",    /* pwm: ehrpwm0A */
-    "P9.36",    /* AIN5 */
+    "P9.39",    /* AIN0 */
+    "P9.40",    /* AIN1 */
+    "P9.37",    /* AIN2 */
     "P9.38",    /* AIN3 */
+    "P9.33",    /* AIN4 */
+    "P9.36",    /* AIN5 */
+    "P9.35",    /* AIN6 */
 
     
     /* the hardware IP uses */
@@ -272,14 +277,14 @@
         status = "okay";
 
         adc {
-          ti,adc-channels = <3 5>;
+          ti,adc-channels = <0 1 2 3 4 5 6 7>;
         };
       };
 
       test_helper: helper {
         compatible = "bone-iio-helper";
-        vsense-name  = "AIN3", "AIN5";
-        vsense-scale = <100     100>;
+        vsense-name  = "AIN0", "AIN1", "AIN2", "AIN3", "AIN4", "AIN5", "AIN6", "AIN7";
+        vsense-scale = <100     100     100     100     100     100     100     100>;
         status = "okay";
       };
     };
