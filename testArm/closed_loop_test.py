@@ -7,7 +7,6 @@ import logging
 from pid import PIDController
 from pwm_utilities import *
 import time
-from utilties import *
 
 log = logging.getLogger(__name__)
 
@@ -41,11 +40,6 @@ def main():
     time.sleep(.1)  # because the valve response rate is 10Hz
 
 
-
 if __name__ == "__main__":
-  setupSignalHandlers()
-  try:
-    main()
-  except:
-    pass  # no matter what everything should stop, so catch everything
-  stopEverythingAndQuit()
+  from utilties import safeRun
+  safeRun(main)

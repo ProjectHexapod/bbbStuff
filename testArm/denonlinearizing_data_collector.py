@@ -69,24 +69,22 @@ def doParameterSweep(stepSize, pwmName, sampleFreq, runLength, returnLength, lou
     results.append((width, dxdt))
   return results
 
-
 if __name__ == "__main__":
-  import utilities
-  utilities.setupSignalHandlers()
   from docopt import docopt
   args = docopt(__doc__, version="Arm Calibration Script v0.1")
-  step = int(args["--step"])
-  pulseWidth = int(args["--pulse"])
-  pwmPin = getPinFromShortName(args["--pwm"])
-  frequency = float(args["--frequency"])
-  duration = float(args["--duration"])
-  returnDuration = float(args["--return"])
-  loud = "--quiet" not in args or not args["--quiet"]
-  try:
+  
+  def main():
+    step = int(args["--step"])
+    pulseWidth = int(args["--pulse"])
+    pwmPin = getPinFromShortName(args["--pwm"])
+    frequency = float(args["--frequency"])
+    duration = float(args["--duration"])
+    returnDuration = float(args["--return"])
+    loud = "--quiet" not in args or not args["--quiet"]
     if step:
       print doParameterSweep(step, pwmPin, frequency, duration, returnDuration, loud)
     else:
       print doSingleMotion(pulseWidth, pwmPin, frequency, duration, loud)
-  except:
-    pass  # catch everything so that no matter what we stop the PWMs
-  stopEverythingAndQuit()
+  
+  from utilities import safeRun
+  safeRun(main)

@@ -79,4 +79,4 @@ P9_21 = os.path.join(_getPwmPinDirectory(9, 21), "duty")
 P9_22 = os.path.join(_getPwmPinDirectory(9, 22), "duty")
 
 if __name__ == "__main__":
-  stopEverything()
+  pass
