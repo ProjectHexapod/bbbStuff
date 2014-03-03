@@ -45,5 +45,8 @@ def main():
 
 if __name__ == "__main__":
   setupSignalHandlers()
-  main()
+  try:
+    main()
+  except:
+    pass  # no matter what everything should stop, so catch everything
   stopEverythingAndQuit()

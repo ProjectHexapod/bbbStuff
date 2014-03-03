@@ -19,9 +19,9 @@ Options:
   -s=<step>, --step=<step>                Sets the step size for the pulse sweep.  [default: 0]
 """
 
+from adc_utilities import *
 from pwm_utilities import *
 import time
-import utilities
 
 def isInFirstNintyPercent(pwmName, reading):
   return "P9_21" in pwmName and reading < .9 or "P9_22" in pwmName and .1 < reading
@@ -31,7 +31,7 @@ def doSingleMotion(pulseWidth, pwmName, sampleFreq, runLength, loud=True):
   if loud:
     print "Pin Name, Pulse Width, Speed"
   initialTime = time.time()
-  initialRead = utilities.readAin()
+  initialRead = readAin(AIN3, ELBOW_RANGE)
   sleepLen = 1. / sampleFreq
   prevTime = initialTime
   prevRead = initialRead
@@ -48,7 +48,7 @@ def doSingleMotion(pulseWidth, pwmName, sampleFreq, runLength, loud=True):
     prevRead = reading
     time.sleep(sleepLen)
     now = time.time()
-    reading = utilities.readAin()
+    reading = readAin(AIN3, ELBOW_RANGE)
     if loud:
       rate = (reading - prevRead) / (now - prevTime)
       print "%s, %s, %s" % (pwmName, pulseWidth, rate)
@@ -71,6 +71,7 @@ def doParameterSweep(stepSize, pwmName, sampleFreq, runLength, returnLength, lou
 
 
 if __name__ == "__main__":
+  import utilities
   utilities.setupSignalHandlers()
   from docopt import docopt
   args = docopt(__doc__, version="Arm Calibration Script v0.1")
