@@ -1,3 +1,14 @@
 Firmware:
-  roll BB-ADC into thigh_bone
-  check if everything in fragments 0-7 are necessary
+  check if everything in fragments 0-7 are necessary  LOW
+  check if the other analog channels can be disabled  LOW
+
+Hardware:
+  hook up the string pot
+  add power connector for bone supply
+
+Software:
+  Turn our current data into a response curve
+  Use the response curve to adapt the output of PID to useful values
+  Figure out IIO to bypass running out of file descriptors problem
+  Add robustness to readAin
+  Remove all hard coded pin stuffs
