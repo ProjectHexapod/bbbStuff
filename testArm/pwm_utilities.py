@@ -9,10 +9,10 @@ from utilities import readInt
 
 log = logging.getLogger(__name__)
 
-def writePwm(name, val):
+def writePwm(name, dutyCycle):
   # TODO: this can throw exceptions (in theory), make sure they're dealt with nicely
   with open(name, mode="w+") as f:
-    f.write(str(val))
+    f.write(str(dutyCycle))
 
 def stop(*pins):
   for pin in pins:

@@ -2,15 +2,14 @@
 """
 """
 
+from adc_utilities import *
+import logging
 from pid import PIDController
-from pwm_utilities import stopEverythingAndQuit
+from pwm_utilities import *
 import time
 from utilties import *
 
-
-def writePwm(name, val):
-  with open("/sys/devices/ocp.3/pwm_test_%s/duty" % name, mode="w+") as f:
-    f.write(str(val))
+log = logging.getLogger(__name__)
 
 def percentageClamp(control):
   return clamp((-1., 1.), control)
@@ -22,18 +21,18 @@ def mapControlToPwmPair(control):
   return (PWM_PERIOD, int(result)) if control > 0 else (int(result), PWM_PERIOD)
 
 def executePwmPair(pair):
-  print "Commanding %s" % str(pair)
-  writePwm("P9_22.13", pair[0])
-  writePwm("P9_14.14", utilities.PWM_PERIOD - pair[0])  # LED
-  writePwm("P9_21.12", pair[1])
-  writePwm("P9_16.15", utilities.PWM_PERIOD - pair[1])  # LED
+  log.debug("Commanding %s" % str(pair))
+  writePwm(P9_22, pair[0])
+  writePwm(P9_14, PWM_PERIOD - pair[0])  # LED
+  writePwm(P9_21, pair[1])
+  writePwm(P9_16, PWM_PERIOD - pair[1])  # LED
 
 def main():
   pid = PIDController(1., 0, .1)
   lastTime = time.time()
   while True:
-    reading = readAin()
-    print "Read: %s" % reading
+    reading = readAin(AIN3, ELBOW_RANGE)
+    log.debug("Read: %s" % reading)
     now = time.time()
     control = pid.update(.5, reading, now - lastTime)
     pair = mapControlToPwmPair(control)
