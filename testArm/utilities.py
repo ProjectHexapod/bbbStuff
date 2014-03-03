@@ -22,7 +22,7 @@ def getPercentageIntoRange(range, distance):
 
 def setupSignalHandlers():
   import signal
-  from stop import stopEverythingAndQuit
+  from pwm_utilities import stopEverythingAndQuit
   signal.signal(signal.SIGABRT, lambda a,b: stopEverythingAndQuit())
   signal.signal(signal.SIGINT, lambda a,b: stopEverythingAndQuit())
   # signal.signal(signal.SIGKILL, lambda a,b: stopEverythingAndQuit())

@@ -3,7 +3,7 @@
 """
 
 from pid import PIDController
-from stop import stopEverythingAndQuit
+from pwm_utilities import stopEverythingAndQuit
 import time
 from utilties import *
 

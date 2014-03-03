@@ -19,7 +19,7 @@ Options:
   -s=<step>, --step=<step>                Sets the step size for the pulse sweep.  [default: 0]
 """
 
-from stop import *
+from pwm_utilities import *
 import time
 import utilities
 
