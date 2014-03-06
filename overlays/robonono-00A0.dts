@@ -312,7 +312,7 @@
   fragment@22 {
     target = <&ocp>;
     __overlay__ {
-      test_helper: helper {
+      some_string: another_string {
         compatible = "bone-pinmux-helper";
         pinctrl-names = "default";
         pinctrl-0 = <&gpio_P8_03>;
