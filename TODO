@@ -1,6 +1,7 @@
 Firmware:
   check if everything in fragments 0-7 are necessary  LOW
   check if the other analog channels can be disabled  LOW
+  check if things can be renamed
 
 Hardware:
   hook up the string pot
@@ -9,6 +10,4 @@ Hardware:
 Software:
   Turn our current data into a response curve
   Use the response curve to adapt the output of PID to useful values
-  Figure out IIO to bypass running out of file descriptors problem
-  Add robustness to readAin
-  Remove all hard coded pin stuffs
+  Figure out IIO to bypass running out of file descriptors problem (maybe unnecessary)
