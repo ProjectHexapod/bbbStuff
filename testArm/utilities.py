@@ -27,6 +27,9 @@ def clamp(limits, control):
 def getPercentageIntoRange(range, distance):
   return (distance - range[0]) / (range[1] - range[0])
 
+def projectPointIntoRange(range, percentage):
+  return percentage * (range[1] - range[0]) + range[0]
+
 def setupSignalHandlers():
   import signal
   from pwm_utilities import stopEverythingAndQuit

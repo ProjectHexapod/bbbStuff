@@ -6,6 +6,9 @@ from glob import glob
 import logging
 import os
 from utilities import clamp, getPercentageIntoRange, readInt
+import logging
+
+log = logging.getLogger(__name__)
 
 def readAin(pinName, jointRange):
   raw = readInt(pinName)
