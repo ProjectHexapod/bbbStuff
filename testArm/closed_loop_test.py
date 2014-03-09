@@ -57,5 +57,4 @@ if __name__ == "__main__":
       lastTime = now
       time.sleep(.1 - (dt - .1))  # because the valve response rate is 10Hz
 
-  from utilities import safeRun
   safeRun(main)
