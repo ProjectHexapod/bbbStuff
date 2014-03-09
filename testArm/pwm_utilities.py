@@ -38,7 +38,6 @@ def _getPwmPinDirectory(header, pin):
     return hits[0]
   else:
     log.fatal("Requested pin P%s_%s not found, double check that the firmware loaded..." % (header, pin))
-    from pwm_utilities import stopEverythingAndQuit
     stopEverythingAndQuit()
 
 def getTwin(pinName):
