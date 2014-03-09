@@ -39,7 +39,7 @@ def executePwmPair(pair):
 
 if __name__ == "__main__":
   from docopt import docopt
-  args = docopt(__doc__, version="Arm Calibration Script v0.1")
+  args = docopt(__doc__, version="Closed Loop Control Test Script v0.1")
   setPoint = float(args["<setPoint>"])
   print setPoint
 
