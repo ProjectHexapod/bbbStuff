@@ -5,6 +5,7 @@
 from glob import glob
 import logging
 import os
+from pwm_utilities import stopEverythingAndQuit
 
 log = logging.getLogger(__name__)
 
@@ -32,7 +33,6 @@ def projectPointIntoRange(range, percentage):
 
 def setupSignalHandlers():
   import signal
-  from pwm_utilities import stopEverythingAndQuit
   signal.signal(signal.SIGABRT, lambda a,b: stopEverythingAndQuit())
   signal.signal(signal.SIGINT, lambda a,b: stopEverythingAndQuit())
   signal.signal(signal.SIGQUIT, lambda a,b: stopEverythingAndQuit())
