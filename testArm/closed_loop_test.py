@@ -50,11 +50,12 @@ if __name__ == "__main__":
       reading = readAin(AIN3, ELBOW_RANGE)
       log.debug("Read: %s" % reading)
       now = time.time()
-      control = pid.update(setPoint, reading, now - lastTime)
+      dt = now - lastTime
+      control = pid.update(setPoint, reading, dt)
       pair = mapControlToPwmPair(control)
       executePwmPair(pair)
       lastTime = now
-      time.sleep(.1)  # because the valve response rate is 10Hz
+      time.sleep(.1 - (dt - .1))  # because the valve response rate is 10Hz
 
   from utilties import safeRun
   safeRun(main)
