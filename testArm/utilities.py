@@ -43,7 +43,7 @@ def safeRun(main):
     main()
   except Exception as e:
     # no matter what everything should stop, so catch everything
-    log.error("Something's gone horribly wrong!", e)
+    log.error("Something's gone horribly wrong!  %s" % e)
     print e
   from pwm_utilities import stopEverythingAndQuit
   stopEverythingAndQuit()
