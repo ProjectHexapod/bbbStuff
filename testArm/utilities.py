@@ -6,7 +6,7 @@ from glob import glob
 import logging
 import os
 
-# log = logging.getLogger(__name__)
+log = logging.getLogger(__name__)
 
 def readInt(filename, retryCount=3):
   # many retries due to a bug in the kernel ADC driver that causes errno 11s sometimes
@@ -18,7 +18,7 @@ def readInt(filename, retryCount=3):
       if ioe.errno == 11:  # errno 11 means temporarily broken, try again
         pass
       else:
-        # log.error("Failed to read from " + filename, ioe)
+        log.error("Failed to read from " + filename, ioe)
         return None
 
 def clamp(limits, control):
@@ -43,7 +43,7 @@ def safeRun(main):
     main()
   except Exception as e:
     # no matter what everything should stop, so catch everything
-    # log.error("Something's gone horribly wrong!", e)
+    log.error("Something's gone horribly wrong!", e)
     print e
   from pwm_utilities import stopEverythingAndQuit
   stopEverythingAndQuit()

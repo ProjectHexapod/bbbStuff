@@ -15,6 +15,7 @@ from pwm_utilities import *
 import time
 from utilities import *
 
+logging.basicConfig()
 log = logging.getLogger(__name__)
 
 def percentageClamp(control):
