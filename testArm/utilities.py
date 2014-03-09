@@ -5,7 +5,6 @@
 from glob import glob
 import logging
 import os
-from pwm_utilities import stopEverythingAndQuit
 
 log = logging.getLogger(__name__)
 
@@ -33,6 +32,7 @@ def projectPointIntoRange(range, percentage):
 
 def setupSignalHandlers():
   import signal
+  from pwm_utilities import stopEverythingAndQuit
   signal.signal(signal.SIGABRT, lambda a,b: stopEverythingAndQuit())
   signal.signal(signal.SIGINT, lambda a,b: stopEverythingAndQuit())
   signal.signal(signal.SIGQUIT, lambda a,b: stopEverythingAndQuit())
@@ -44,6 +44,7 @@ def safeRun(main):
   except Exception as e:
     # no matter what everything should stop, so catch everything
     log.error("Something's gone horribly wrong!", e)
+  from pwm_utilities import stopEverythingAndQuit
   stopEverythingAndQuit()
 
 if __name__ == "__main__":
