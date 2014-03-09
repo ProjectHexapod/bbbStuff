@@ -7,6 +7,7 @@ import logging
 from pid import PIDController
 from pwm_utilities import *
 import time
+from utilities import *
 
 log = logging.getLogger(__name__)
 
@@ -16,7 +17,7 @@ def percentageClamp(control):
 def mapControlToPwmPair(control):
   control = percentageClamp(control)
   mag = 1. - abs(control)  # the 1 - here is because pwm duty 0 corresponds to full speed instead of stop
-  result = mag * PWM_PERIOD * .8  + PWM_PERIOD * .2  # this is too naive
+  result = getPercentageIntoRange((1800000, 3500000), mag)
   return (PWM_PERIOD, int(result)) if control > 0 else (int(result), PWM_PERIOD)
 
 def executePwmPair(pair):
