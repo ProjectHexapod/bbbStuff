@@ -43,11 +43,11 @@ def executePwmPair(pair):
 if __name__ == "__main__":
   from docopt import docopt
   args = docopt(__doc__, version="Closed Loop Control Test Script v0.1")
-  setPoint = float(args["<setPoint>"])
   sinWave = "-s" in args and args["-s"]
+  if not sinWave
+    setPoint = float(args["-t"])
 
   def main():
-    print setPoint
     pid = PIDController(1., .001, .1)
     lastTime = time.time()
     while True:
