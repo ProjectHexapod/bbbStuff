@@ -22,7 +22,10 @@ Options:
 
 from adc_utilities import *
 from pwm_utilities import *
+import logging
 import time
+
+logging.basicConfig()
 
 def isInFirstNintyPercent(pwmName, reading):
   return "P9_21" in pwmName and reading < .9 or "P9_22" in pwmName and .1 < reading
