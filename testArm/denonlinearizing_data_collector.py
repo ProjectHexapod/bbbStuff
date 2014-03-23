@@ -28,7 +28,10 @@ import time
 logging.basicConfig()
 
 def isInFirstNintyPercent(pwmName, reading):
-  return "P9_21" in pwmName and reading < .9 or "P9_22" in pwmName and .1 < reading
+  return ("P9_21" in pwmName and reading < .9 or 
+          "P9_22" in pwmName and .1 < reading or
+          "P8_13" in pwmName and .1 < reading or
+          "P8_19" in pwmName and reading < .9)
 
 
 def doSingleMotion(pulseWidth, pwmName, sampleFreq, runLength, ain, joint_range, loud=True):
