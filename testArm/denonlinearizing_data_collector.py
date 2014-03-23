@@ -86,7 +86,7 @@ if __name__ == "__main__":
     returnDuration = float(args["--return"])
     loud = "--quiet" not in args or not args["--quiet"]
     ain = AIN5 if "--shoulder" in args or args["--shoulder"] else AIN3
-    joint_range = SHOULER_RANGE if "--shoulder" in args or args["--shoulder"] else ELBOW_RANGE
+    joint_range = SHOULDER_RANGE if "--shoulder" in args or args["--shoulder"] else ELBOW_RANGE
     if step:
       print doParameterSweep(step, pwmPin, frequency, duration, returnDuration, ain, joint_range, loud)
     else:
