@@ -73,13 +73,13 @@ if __name__ == "__main__":
       shoulderControl = 0
       if sinWave:
         elbowControl = elbowPid.update(math.sin(now)/2.+.5, reading, dt)
-        shoulderControl = shoulderPid.update(math.sin(now/3.)/2.+.5, reading, dt)
+        shoulderControl = shoulderPid.update(math.sin(now/3.)/8.+.85, reading, dt)
       else:
         elbowControl = elbowPid.update(elbowSetPoint, reading, dt)
         shoulderControl = shoulderPid.update(shoulderSetPoint, reading, dt)
       elbowPair = mapControlToElbowPwmPair(elbowControl)
       shoulderPair = mapControlToShoulderPwmPair(shoulderControl)
-      executeElbowPwmPair(elbowPair)
+      # executeElbowPwmPair(elbowPair)
       executeShoulderPwmPair(shoulderPair)
       lastTime = now
       time.sleep(.1)  # because the valve response rate is 10Hz
