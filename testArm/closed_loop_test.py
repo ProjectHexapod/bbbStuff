@@ -44,7 +44,7 @@ if __name__ == "__main__":
   from docopt import docopt
   args = docopt(__doc__, version="Closed Loop Control Test Script v0.1")
   sinWave = "-s" in args and args["-s"]
-  if not sinWave
+  if not sinWave:
     setPoint = float(args["-t"])
 
   def main():

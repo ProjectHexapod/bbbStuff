@@ -42,7 +42,7 @@ def safeRun(main):
   setupSignalHandlers()
   try:
     main()
-  except:
+  except Exception:
     # no matter what everything should stop, so catch everything
     err = traceback.format_exc()
     log.error("Something's gone horribly wrong!  %s" % err)
