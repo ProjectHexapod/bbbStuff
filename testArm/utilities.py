@@ -5,6 +5,7 @@
 from glob import glob
 import logging
 import os
+import traceback
 
 log = logging.getLogger(__name__)
 
@@ -41,10 +42,10 @@ def safeRun(main):
   setupSignalHandlers()
   try:
     main()
-  except Exception as e:
+  except:
     # no matter what everything should stop, so catch everything
-    log.error("Something's gone horribly wrong!  %s" % e)
-    print e
+    err = traceback.format_exc()
+    log.error("Something's gone horribly wrong!  %s" % err)
   from pwm_utilities import stopEverythingAndQuit
   stopEverythingAndQuit()
 
