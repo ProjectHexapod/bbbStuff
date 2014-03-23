@@ -2,11 +2,12 @@
 """Closed Loop Test
 
 Usage:
-  ./closed_loop_test.py (-t <setPoint>|-s)
+  ./closed_loop_test.py (-e <elbowSetPoint> [-s <shoulderSetPoint>]|--sin)
 
 Options:
-  -s                   Sin wave.
-  -t <setpoint>        Where should the dof go?
+  --sin                     Sin wave.
+  -e <elbowSetPoint>        Where should the dof go?
+  -s <shoulderSetPoint>     Where should the shoulder go?
 """
 
 from adc_utilities import *
@@ -31,37 +32,47 @@ def mapControlToPwmPair(control):
   result = int(projectPointIntoRange((1800000, 3400000), mag))
   return (PWM_PERIOD, result) if control > 0 else (result, PWM_PERIOD)
 
-def executePwmPair(pair):
+def executeElbowPwmPair(pair):
   log.debug("Commanding %s" % str(pair))
   writePwm(P9_21, pair[0])
   writePwm(GREEN_LED, PWM_PERIOD - pair[0])
   writePwm(P9_22, pair[1])
   writePwm(BLUE_LED, PWM_PERIOD - pair[1])
 
+def executeShoulderPwmPair(pair):
+  writePwm(P8_13, pair[0])
+  writePwm(P8_19, pair[1])
 
 
 if __name__ == "__main__":
   from docopt import docopt
   args = docopt(__doc__, version="Closed Loop Control Test Script v0.1")
-  sinWave = "-s" in args and args["-s"]
+  sinWave = "--sin" in args and args["--sin"]
   if not sinWave:
-    setPoint = float(args["-t"])
+    elbowSetPoint = float(args["-e"])
+    shoulderSetPoint = float(args["-s"])
 
   def main():
-    pid = PIDController(1., .001, .1)
+    elbowPid = PIDController(1., .001, .1)
+    shoulderPid = PIDController(1., .001, .1)
     lastTime = time.time()
     while True:
       reading = readAin(AIN3, ELBOW_RANGE)
       log.debug("Read: %s" % reading)
       now = time.time()
       dt = now - lastTime
-      control = 0
+      elbowControl = 0
+      shoulderControl = 0
       if sinWave:
-        control = pid.update(math.sin(now)/2.+.5, reading, dt)
+        elbowControl = elbowPid.update(math.sin(now)/2.+.5, reading, dt)
+        shoulderControl = shoulderPid.update(math.sin(now/3.)/2.+.5, reading, dt)
       else:
-        control = pid.update(setPoint, reading, dt)
-      pair = mapControlToPwmPair(control)
-      executePwmPair(pair)
+        elbowControl = elbowPid.update(elbowSetPoint, reading, dt)
+        shoulderControl = shoulderPid.update(shoulderSetPoint, reading, dt)
+      elbowPair = mapControlToPwmPair(elbowControl)
+      shoulderPair = mapControlToPwmPair(shoulderControl)
+      executeElbowPwmPair(elbowPair)
+      executeShoulderPwmPair(shoulderPair)
       lastTime = now
       time.sleep(.1)  # because the valve response rate is 10Hz
 
