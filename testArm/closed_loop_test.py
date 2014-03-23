@@ -33,9 +33,9 @@ def mapControlToPwmPair(control):
 
 def executePwmPair(pair):
   log.debug("Commanding %s" % str(pair))
-  writePwm(P9_22, pair[0])
+  writePwm(P9_21, pair[0])
   writePwm(GREEN_LED, PWM_PERIOD - pair[0])
-  writePwm(P9_21, pair[1])
+  writePwm(P9_22, pair[1])
   writePwm(BLUE_LED, PWM_PERIOD - pair[1])
 
 
