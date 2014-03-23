@@ -17,6 +17,7 @@ Options:
   -r=<return>, --return=<return>          Set the return stroke duration.  [default: 2]
   -q, --quiet                             Supress printing the raw data.
   -s=<step>, --step=<step>                Sets the step size for the pulse sweep.  [default: 0]
+  --shoulder                              Collect data for the shoulder deadband
 """
 
 from adc_utilities import *
@@ -27,11 +28,11 @@ def isInFirstNintyPercent(pwmName, reading):
   return "P9_21" in pwmName and reading < .9 or "P9_22" in pwmName and .1 < reading
 
 
-def doSingleMotion(pulseWidth, pwmName, sampleFreq, runLength, loud=True):
+def doSingleMotion(pulseWidth, pwmName, sampleFreq, runLength, ain, joint_range, loud=True):
   if loud:
     print "Pin Name, Pulse Width, Speed"
   initialTime = time.time()
-  initialRead = readAin(AIN3, ELBOW_RANGE)
+  initialRead = readAin(ain, joint_range)
   sleepLen = 1. / sampleFreq
   prevTime = initialTime
   prevRead = initialRead
@@ -48,7 +49,7 @@ def doSingleMotion(pulseWidth, pwmName, sampleFreq, runLength, loud=True):
     prevRead = reading
     time.sleep(sleepLen)
     now = time.time()
-    reading = readAin(AIN3, ELBOW_RANGE)
+    reading = readAin(ain, joint_range)
     if loud:
       rate = (reading - prevRead) / (now - prevTime)
       print "%s, %s, %s" % (pwmName, pulseWidth, rate)
@@ -57,7 +58,7 @@ def doSingleMotion(pulseWidth, pwmName, sampleFreq, runLength, loud=True):
   elapsed = prevTime - initialTime
   return (prevRead - initialRead) / elapsed if elapsed > 0 else 0.
 
-def doParameterSweep(stepSize, pwmName, sampleFreq, runLength, returnLength, loud=True):
+def doParameterSweep(stepSize, pwmName, sampleFreq, runLength, returnLength, ain, joint_range, loud=True):
   otherPwm = getTwin(pwmName)
   results = []
   for width in range(PWM_PERIOD, PWM_PERIOD/5, -stepSize):
@@ -65,7 +66,7 @@ def doParameterSweep(stepSize, pwmName, sampleFreq, runLength, returnLength, lou
     writePwm(BLUE_LED, 3500000)
     time.sleep(returnLength)
     stop(otherPwm, BLUE_LED)
-    dxdt = doSingleMotion(width, pwmName, sampleFreq, runLength, loud)
+    dxdt = doSingleMotion(width, pwmName, sampleFreq, runLength, ain, joint_range, loud)
     results.append((width, dxdt))
   return results
 
@@ -81,10 +82,12 @@ if __name__ == "__main__":
     duration = float(args["--duration"])
     returnDuration = float(args["--return"])
     loud = "--quiet" not in args or not args["--quiet"]
+    ain = AIN5 if "--shoulder" in args or args["--shoulder"] else AIN3
+    joint_range = SHOULER_RANGE if "--shoulder" in args or args["--shoulder"] else ELBOW_RANGE
     if step:
-      print doParameterSweep(step, pwmPin, frequency, duration, returnDuration, loud)
+      print doParameterSweep(step, pwmPin, frequency, duration, returnDuration, ain, joint_range, loud)
     else:
-      print doSingleMotion(pulseWidth, pwmPin, frequency, duration, loud)
+      print doSingleMotion(pulseWidth, pwmPin, frequency, duration, ain, joint_range, loud)
   
   from utilities import safeRun
   safeRun(main)
