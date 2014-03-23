@@ -2,14 +2,16 @@
 """Closed Loop Test
 
 Usage:
-  ./closed_loop_test.py <setPoint>
+  ./closed_loop_test.py (-t <setPoint>]|-s)
 
 Options:
-  <setpoint>        Where should the dof go?  [default: 0.5]
+  -s                   Sin wave.
+  -t <setpoint>        Where should the dof go?
 """
 
 from adc_utilities import *
 import logging
+import math
 from pid import PIDController
 from pwm_utilities import *
 import time
@@ -42,6 +44,7 @@ if __name__ == "__main__":
   from docopt import docopt
   args = docopt(__doc__, version="Closed Loop Control Test Script v0.1")
   setPoint = float(args["<setPoint>"])
+  sinWave = "-s" in args and args["-s"]
 
   def main():
     print setPoint
@@ -52,10 +55,14 @@ if __name__ == "__main__":
       log.debug("Read: %s" % reading)
       now = time.time()
       dt = now - lastTime
-      control = pid.update(setPoint, reading, dt)
+      control = 0
+      if sinWave:
+        control = pid.update(math.sin(now)/2.+.5, reading, dt)
+      else:
+        control = pid.update(setPoint, reading, dt)
       pair = mapControlToPwmPair(control)
       executePwmPair(pair)
       lastTime = now
-      time.sleep(.1 - (dt - .1))  # because the valve response rate is 10Hz
+      time.sleep(.1)  # because the valve response rate is 10Hz
 
   safeRun(main)
