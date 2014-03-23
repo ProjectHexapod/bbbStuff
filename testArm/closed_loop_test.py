@@ -2,7 +2,7 @@
 """Closed Loop Test
 
 Usage:
-  ./closed_loop_test.py (-t <setPoint>]|-s)
+  ./closed_loop_test.py (-t <setPoint>|-s)
 
 Options:
   -s                   Sin wave.
