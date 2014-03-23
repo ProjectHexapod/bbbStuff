@@ -24,12 +24,20 @@ log = logging.getLogger(__name__)
 def percentageClamp(control):
   return clamp((-1., 1.), control)
 
-def mapControlToPwmPair(control):
+def mapControlToElbowPwmPair(control):
   control = percentageClamp(control)
   mag = 1. - abs(control)  # the 1 - here is because pwm duty 0 corresponds to full speed instead of stop
   if mag > .99:  # put in a tiny deadband so that it's possible to stop if we're "close enough"
     return (PWM_PERIOD, PWM_PERIOD)
   result = int(projectPointIntoRange((1800000, 3400000), mag))
+  return (PWM_PERIOD, result) if control > 0 else (result, PWM_PERIOD)
+
+def mapControlToShoulderPwmPair(control):
+  control = percentageClamp(control)
+  mag = 1. - abs(control)  # the 1 - here is because pwm duty 0 corresponds to full speed instead of stop
+  if mag > .99:  # put in a tiny deadband so that it's possible to stop if we're "close enough"
+    return (PWM_PERIOD, PWM_PERIOD)
+  result = int(projectPointIntoRange((3000000, 3650000), mag))
   return (PWM_PERIOD, result) if control > 0 else (result, PWM_PERIOD)
 
 def executeElbowPwmPair(pair):
@@ -69,8 +77,8 @@ if __name__ == "__main__":
       else:
         elbowControl = elbowPid.update(elbowSetPoint, reading, dt)
         shoulderControl = shoulderPid.update(shoulderSetPoint, reading, dt)
-      elbowPair = mapControlToPwmPair(elbowControl)
-      shoulderPair = mapControlToPwmPair(shoulderControl)
+      elbowPair = mapControlToElbowPwmPair(elbowControl)
+      shoulderPair = mapControlToShoulderPwmPair(shoulderControl)
       executeElbowPwmPair(elbowPair)
       executeShoulderPwmPair(shoulderPair)
       lastTime = now
