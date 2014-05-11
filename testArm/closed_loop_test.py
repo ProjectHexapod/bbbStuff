@@ -80,7 +80,7 @@ if __name__ == "__main__":
       else:
         elbowRate = elbowPid.update(elbowSetPoint, reading, dt)
         # shoulderControl = shoulderPid.update(shoulderSetPoint, reading, dt)
-      elbowPair = mapControlToElbowPwmPair(elbowRate)
+      elbowPair = mapControlToElbowPwmPair(elbowRate, pistonPressure)
       # shoulderPair = mapControlToShoulderPwmPair(shoulderControl)
       executeElbowPwmPair(elbowPair)
       # executeShoulderPwmPair(shoulderPair)
