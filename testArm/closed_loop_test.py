@@ -11,6 +11,7 @@ Options:
 """
 
 from adc_utilities import *
+from arm_dynamics import getElbowPressure, getValveCommandFromControlSignal
 import logging
 import math
 from pid import PIDController
@@ -24,12 +25,13 @@ log = logging.getLogger(__name__)
 def percentageClamp(control):
   return clamp((-1., 1.), control)
 
-def mapControlToElbowPwmPair(control):
+def mapControlToElbowPwmPair(control, pressure):
   control = percentageClamp(control)
   mag = 1. - abs(control)  # the 1 - here is because pwm duty 0 corresponds to full speed instead of stop
   if mag > .99:  # put in a tiny deadband so that it's possible to stop if we're "close enough"
     return (PWM_PERIOD, PWM_PERIOD)
-  result = int(projectPointIntoRange((1800000, 3400000), mag))
+  result = int(getValveCommandFromControlSignal(control, pressure))
+  # result = int(projectPointIntoRange((1800000, 3400000), mag))
   return (PWM_PERIOD, result) if control > 0 else (result, PWM_PERIOD)
 
 def mapControlToShoulderPwmPair(control):
@@ -67,20 +69,21 @@ if __name__ == "__main__":
     while True:
       reading = readAin(AIN3, ELBOW_RANGE)
       log.debug("Read: %s" % reading)
+      pistonPressure = getElbowPressure(reading)
       now = time.time()
       dt = now - lastTime
-      elbowControl = 0
-      shoulderControl = 0
+      elbowRate = 0
+      # shoulderControl = 0
       if sinWave:
-        elbowControl = elbowPid.update(math.sin(now)/2.+.5, reading, dt)
-        shoulderControl = shoulderPid.update(math.sin(now/3.)/8.+.85, reading, dt)
+        elbowRate = elbowPid.update(math.sin(now)/2.+.5, reading, dt)
+        # shoulderControl = shoulderPid.update(math.sin(now/3.)/8.+.85, reading, dt)
       else:
-        elbowControl = elbowPid.update(elbowSetPoint, reading, dt)
-        shoulderControl = shoulderPid.update(shoulderSetPoint, reading, dt)
-      elbowPair = mapControlToElbowPwmPair(elbowControl)
-      shoulderPair = mapControlToShoulderPwmPair(shoulderControl)
-      # executeElbowPwmPair(elbowPair)
-      executeShoulderPwmPair(shoulderPair)
+        elbowRate = elbowPid.update(elbowSetPoint, reading, dt)
+        # shoulderControl = shoulderPid.update(shoulderSetPoint, reading, dt)
+      elbowPair = mapControlToElbowPwmPair(elbowRate)
+      # shoulderPair = mapControlToShoulderPwmPair(shoulderControl)
+      executeElbowPwmPair(elbowPair)
+      # executeShoulderPwmPair(shoulderPair)
       lastTime = now
       time.sleep(.1)  # because the valve response rate is 10Hz
 
