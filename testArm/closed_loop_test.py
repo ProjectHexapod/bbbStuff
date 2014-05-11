@@ -25,7 +25,7 @@ log = logging.getLogger(__name__)
 def percentageClamp(control):
   return clamp((-1., 1.), control)
 
-def mapControlToElbowPwmPair(control, pressure):
+def mapControlToElbowPwmPair(control):
   control = percentageClamp(control)
   mag = 1. - abs(control)  # the 1 - here is because pwm duty 0 corresponds to full speed instead of stop
   if mag > .99:  # put in a tiny deadband so that it's possible to stop if we're "close enough"
