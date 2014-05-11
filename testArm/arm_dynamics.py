@@ -24,7 +24,7 @@ supplyPressure = 2500.
 
 
 
-def getElbowPressure(elbowReading, load = 200):  # PSI
+def getElbowPressure(elbowReading, load = 200):
   a = aEdgeLen
   b = bEdgeLen
   c = elbowReading * inchesPerEncoder3 + encoder3Bias
@@ -40,7 +40,7 @@ def getElbowPressure(elbowReading, load = 200):  # PSI
 def getValveCommandFromControlSignal(ctrl, pistonPressure):
   a1 = elbowRetractArea if ctrl > 0 else elbowExtendArea
   a2 = elbowExtendArea if ctrl > 0 else elbowRetractArea
-  numer = (a1/a2)**2 + 1
+  numer = (a2/a1)**2 + 1
   denom = supplyPressure - pistonPressure
   # ctrl * a1 is desired flow through the pressure side
   return ctrl * a1 * math.sqrt(oilSpecificGravity * numer / denom)
