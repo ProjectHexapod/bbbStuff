@@ -5,7 +5,7 @@ Usage:
   ./closed_loop_test.py (-e <elbowSetPoint> [-s <shoulderSetPoint>]|--sin)
 
 Options:
-  --sin                     Sin wave.
+  --sin, --sine             Sine wave.
   -e <elbowSetPoint>        Where should the dof go?
   -s <shoulderSetPoint>     Where should the shoulder go?
 """

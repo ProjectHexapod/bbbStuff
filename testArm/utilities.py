@@ -26,7 +26,7 @@ def clamp(limits, control):
   return min(limits[1], max(limits[0], control))
 
 def getPercentageIntoRange(range, distance):
-  return (distance - range[0]) / (range[1] - range[0])
+  return (distance - range[0]) / float(range[1] - range[0])
 
 def projectPointIntoRange(range, percentage):
   return percentage * (range[1] - range[0]) + range[0]

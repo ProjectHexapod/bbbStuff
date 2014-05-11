@@ -2,13 +2,18 @@
 
 import math
 
+def getPercentageIntoRange(range, distance):
+  return (distance - range[0]) / (range[1] - range[0])
+getPercentageIntoRange((0,2), 1)
+ELBOW_RANGE = (1420, 3570)  # these values came from a run of calibrate.py
+
 aEdgeLen = 16.5   # inches
 bEdgeLen = 4.375  # inches
-readings = [(1428, 19.875)  # (encoderRaw, inches)
-           , (2465, 17.125)
-           , (3475, 14.25)]
+readings = [(0.0037, 19.875, 1428)  # (percentage, inches, encoderRaw)
+           , (0.4860, 17.125, 2465)
+           , (0.9558, 14.25, 3475)]
 inchesPerEncoder3 = (readings[2][1] - readings[0][1]) / (readings[2][0] - readings[0][0])
-encoder3Bias = 23.8  # inches
+encoder3Bias = readings[2][1] - readings[2][0] * inchesPerEncoder3
 lowerArmLength = 20.875  # inches
 elbowBore = 2.
 elbowRod = 1.25
@@ -16,6 +21,7 @@ elbowExtendArea = (elbowBore/2)**2 * math.pi
 elbowRetractArea = elbowExtendArea - (elbowRod/2)**2 * math.pi
 oilSpecificGravity = .87  # looked it up in Google
 supplyPressure = 2500.
+
 
 
 def getElbowPressure(elbowReading, load = 200):  # PSI
@@ -37,7 +43,7 @@ def getValveCommandFromControlSignal(ctrl, pistonPressure):
   numer = (a1/a2)**2 + 1
   denom = supplyPressure - pistonPressure
   # ctrl * a1 is desired flow through the pressure side
-  return ctrl * a1 * math.sqrt(numer / denom)
+  return ctrl * a1 * math.sqrt(oilSpecificGravity * numer / denom)
 
 
 
