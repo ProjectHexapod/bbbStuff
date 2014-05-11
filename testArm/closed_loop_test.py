@@ -27,11 +27,11 @@ def percentageClamp(control):
 
 def mapControlToElbowPwmPair(control, pressure):
   control = percentageClamp(control)
-  mag = 1. - abs(control)  # the 1 - here is because pwm duty 0 corresponds to full speed instead of stop
-  if mag > .99:  # put in a tiny deadband so that it's possible to stop if we're "close enough"
+  # the 1 - here is because pwm duty 0 corresponds to full speed instead of stop
+  if 1. - abs(control) > .99:  # put in a tiny deadband so that it's possible to stop if we're "close enough"
     return (PWM_PERIOD, PWM_PERIOD)
-  result = int(getValveCommandFromControlSignal(control, pressure))
-  # result = int(projectPointIntoRange((1800000, 3400000), mag))
+  kv = 1. - getValveCommandFromControlSignal(control, pressure)
+  result = int(projectPointIntoRange((1800000, 3400000), kv))
   return (PWM_PERIOD, result) if control > 0 else (result, PWM_PERIOD)
 
 def mapControlToShoulderPwmPair(control):
