@@ -47,12 +47,5 @@ def getValveCommandFromControlSignal(ctrl, pistonPressure):
 
 
 
-# PID:: Set Point -> Position -> Desired Flow
-# Physics:: Position -> Pressure
-# ValveModel:: Pressure -> Desired Flow -> Command
-
-# SG of AW 32  == .87  (from google)
-
-
 
 

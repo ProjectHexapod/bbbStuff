@@ -65,6 +65,7 @@ if __name__ == "__main__":
     elbowPid = PIDController(10., .001, .1)
     shoulderPid = PIDController(1., .001, .1)
     lastTime = time.time()
+    print "actual, delinearizedSetPoint, afterPID"
     while True:
       reading = readAin(AIN3, ELBOW_RANGE)
       log.debug("Read: %s" % reading)
@@ -81,6 +82,7 @@ if __name__ == "__main__":
         # shoulderControl = shoulderPid.update(shoulderSetPoint, reading, dt)
       relevantPressure = pistonPressure[1 if elbowRate > 0 else 0]
       kv = getValveCommandFromControlSignal(elbowRate, relevantPressure)
+      print "%s, %s, %s" % (reading, kv, elbowRate)
       elbowPair = mapControlToElbowPwmPair(kv)
       # shoulderPair = mapControlToShoulderPwmPair(shoulderControl)
       executeElbowPwmPair(elbowPair)
