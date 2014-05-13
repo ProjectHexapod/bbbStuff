@@ -62,13 +62,13 @@ if __name__ == "__main__":
     shoulderSetPoint = float(args["-s"])
 
   def main():
-    elbowPid = PIDController(1., .001, .1)
+    elbowPid = PIDController(10., .001, .1)
     shoulderPid = PIDController(1., .001, .1)
     lastTime = time.time()
     while True:
       reading = readAin(AIN3, ELBOW_RANGE)
       log.debug("Read: %s" % reading)
-      pistonPressure = getElbowPressure(reading)
+      pistonPressure = getElbowPressureFromGravity(reading)
       now = time.time()
       dt = now - lastTime
       elbowRate = 0
@@ -79,7 +79,8 @@ if __name__ == "__main__":
       else:
         elbowRate = elbowPid.update(elbowSetPoint, reading, dt)
         # shoulderControl = shoulderPid.update(shoulderSetPoint, reading, dt)
-      kv = getValveCommandFromControlSignal(elbowRate, pistonPressure)
+      relevantPressure = pistonPressure[1 if elbowRate > 0 else 0]
+      kv = getValveCommandFromControlSignal(elbowRate, relevantPressure)
       elbowPair = mapControlToElbowPwmPair(kv)
       # shoulderPair = mapControlToShoulderPwmPair(shoulderControl)
       executeElbowPwmPair(elbowPair)

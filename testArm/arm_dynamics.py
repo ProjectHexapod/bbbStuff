@@ -24,7 +24,7 @@ supplyPressure = 2500.
 
 
 
-def getElbowPressure(elbowReading, load = 200):
+def getElbowPressureFromGravity(elbowReading, load = 200):
   a = aEdgeLen
   b = bEdgeLen
   c = elbowReading * inchesPerEncoder3 + encoder3Bias
@@ -33,9 +33,9 @@ def getElbowPressure(elbowReading, load = 200):
   torque = load * lowerArmLength * math.sin(theta)
   force = torque / bEdgeLen
   if elbowReading < readings[1][0]:
-    return force / elbowExtendArea
+    return (force / elbowExtendArea, -force / elbowRetractArea)
   else:
-    return force / elbowRetractArea
+    return (-force / elbowExtendArea, force / elbowRetractArea)
 
 def getValveCommandFromControlSignal(ctrl, pistonPressure):
   a1 = elbowRetractArea if ctrl > 0 else elbowExtendArea
