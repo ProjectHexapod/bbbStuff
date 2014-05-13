@@ -62,7 +62,7 @@ if __name__ == "__main__":
     shoulderSetPoint = float(args["-s"])
 
   def main():
-    elbowPid = PIDController(20., .1, 1)
+    elbowPid = PIDController(10., 1, 1)
     shoulderPid = PIDController(1., .001, .1)
     lastTime = time.time()
     print "actual, delinearizedSetPoint, afterPID, target"
@@ -82,7 +82,7 @@ if __name__ == "__main__":
         # shoulderControl = shoulderPid.update(shoulderSetPoint, reading, dt)
       relevantPressure = pistonPressure[1 if elbowRate > 0 else 0]
       kv = getValveCommandFromControlSignal(elbowRate, relevantPressure)
-      print "%s, %s, %s, %s" % (reading, kv, elbowRate, math.sin(now))
+      print "%s, %s, %s, %s" % (reading, kv, elbowRate, math.sin(now/2.))
       elbowPair = mapControlToElbowPwmPair(kv)
       # shoulderPair = mapControlToShoulderPwmPair(shoulderControl)
       executeElbowPwmPair(elbowPair)
