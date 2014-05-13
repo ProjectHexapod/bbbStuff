@@ -62,7 +62,7 @@ if __name__ == "__main__":
     shoulderSetPoint = float(args["-s"])
 
   def main():
-    elbowPid = PIDController(10., .001, .1)
+    elbowPid = PIDController(20., .1, 1)
     shoulderPid = PIDController(1., .001, .1)
     lastTime = time.time()
     print "actual, delinearizedSetPoint, afterPID, target"
@@ -75,7 +75,7 @@ if __name__ == "__main__":
       elbowRate = 0
       # shoulderControl = 0
       if sinWave:
-        elbowRate = elbowPid.update(math.sin(now)/2.+.5, reading, dt)
+        elbowRate = elbowPid.update(math.sin(now/2.)/2.+.5, reading, dt)
         # shoulderControl = shoulderPid.update(math.sin(now/3.)/8.+.85, reading, dt)
       else:
         elbowRate = elbowPid.update(elbowSetPoint, reading, dt)
