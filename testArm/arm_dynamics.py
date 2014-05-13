@@ -20,11 +20,11 @@ elbowRod = 1.25
 elbowExtendArea = (elbowBore/2)**2 * math.pi
 elbowRetractArea = elbowExtendArea - (elbowRod/2)**2 * math.pi
 oilSpecificGravity = .87  # looked it up in Google
-supplyPressure = 2500.
+supplyPressure = 500.
 
 
 
-def getElbowPressureFromGravity(elbowReading, load = 200):
+def getElbowPressureFromGravity(elbowReading, load = 100):
   a = aEdgeLen
   b = bEdgeLen
   c = elbowReading * inchesPerEncoder3 + encoder3Bias
