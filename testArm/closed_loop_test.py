@@ -30,7 +30,7 @@ def mapControlToElbowPwmPair(control):
   mag = 1. - abs(control)  # the 1 - here is because pwm duty 0 corresponds to full speed instead of stop
   if mag > .99:  # put in a tiny deadband so that it's possible to stop if we're "close enough"
     return (PWM_PERIOD, PWM_PERIOD)
-  result = int(projectPointIntoRange((1800000, 3400000), mag))
+  result = int(projectPointIntoRange((1900000, 3300000), mag))
   return (PWM_PERIOD, result) if control > 0 else (result, PWM_PERIOD)
 
 def mapControlToShoulderPwmPair(control):
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     elbowPid = PIDController(10., .001, .1)
     shoulderPid = PIDController(1., .001, .1)
     lastTime = time.time()
-    print "actual, delinearizedSetPoint, afterPID"
+    print "actual, delinearizedSetPoint, afterPID, target"
     while True:
       reading = readAin(AIN3, ELBOW_RANGE)
       log.debug("Read: %s" % reading)
@@ -82,7 +82,7 @@ if __name__ == "__main__":
         # shoulderControl = shoulderPid.update(shoulderSetPoint, reading, dt)
       relevantPressure = pistonPressure[1 if elbowRate > 0 else 0]
       kv = getValveCommandFromControlSignal(elbowRate, relevantPressure)
-      print "%s, %s, %s" % (reading, kv, elbowRate)
+      print "%s, %s, %s, %s" % (reading, kv, elbowRate, math.sin(now))
       elbowPair = mapControlToElbowPwmPair(kv)
       # shoulderPair = mapControlToShoulderPwmPair(shoulderControl)
       executeElbowPwmPair(elbowPair)
