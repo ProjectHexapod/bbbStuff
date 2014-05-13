@@ -11,7 +11,7 @@ Options:
 """
 
 from adc_utilities import *
-from arm_dynamics import getElbowPressure, getValveCommandFromControlSignal
+from arm_dynamics import getElbowPressureFromGravity, getValveCommandFromControlSignal
 import logging
 import math
 from pid import PIDController
