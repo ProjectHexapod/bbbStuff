@@ -82,7 +82,7 @@ if __name__ == "__main__":
         # shoulderControl = shoulderPid.update(shoulderSetPoint, reading, dt)
       relevantPressure = pistonPressure[1 if elbowRate > 0 else 0]
       kv = getValveCommandFromControlSignal(elbowRate, relevantPressure)
-      print "%s, %s, %s, %s" % (reading, kv, elbowRate, math.sin(now/2.))
+      print "%s, %s, %s, %s" % (reading, kv, elbowRate, math.sin(now/2.)/2.)
       elbowPair = mapControlToElbowPwmPair(kv)
       # shoulderPair = mapControlToShoulderPwmPair(shoulderControl)
       executeElbowPwmPair(elbowPair)

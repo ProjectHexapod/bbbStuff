@@ -4,7 +4,15 @@ Firmware:
   rename all the device overlays
 
 Hardware:
+  add high voltage current sensing to incorporate the pressure sensors
+  add voltage divider so AIN can monitor source voltage  LOW
 
 Software:
-  Figure out IIO to bypass running out of file descriptors problem (maybe unnecessary)
   pull out the deadband parameters from closed loop test
+  centralize all the parameters, a model file probably
+  write calibration scripts
+  do constant velocity test
+  make realtime graphing (over the network)
+  start thinking about interfacing with the existing code
+  FRP?
+  start thinking about a UI
