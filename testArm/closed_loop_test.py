@@ -88,6 +88,6 @@ if __name__ == "__main__":
       executeElbowPwmPair(elbowPair)
       # executeShoulderPwmPair(shoulderPair)
       lastTime = now
-      time.sleep(.1)  # because the valve response rate is 10Hz
+      time.sleep(.01)  # because the valve response rate is 10Hz
 
   safeRun(main)
