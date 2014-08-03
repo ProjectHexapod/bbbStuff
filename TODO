@@ -1,6 +1,4 @@
 Firmware:
-  check if everything in fragments 0-7 are necessary  LOW
-  check if the other analog channels can be disabled  LOW
   rename all the device overlays
 
 Hardware:
@@ -13,13 +11,28 @@ Hardware:
   add 3rd solenoid driver channel (4th? Do we need to support dual yaw piston option?)
   add 3rd analog port for string pots
   look into 12V switching regulator for solenoids and pressure sensors
+  choose cables and connectors
+  choose enclosures
+  update schematic and pcb layout
+  bypass ports for manual control
+
 
 Software:
   pull out the deadband parameters from closed loop test
   centralize all the parameters, a model file probably
   write calibration scripts
-  do constant velocity test
-  make realtime graphing (over the network)
+  make realtime graphing (over the network)  (maybe storm?)
   start thinking about interfacing with the existing code
-  FRP?
-  start thinking about a UI
+  start thinking about a UI  (LOW)
+  document a comm protocol
+  hook up all the networking code
+  do the physics
+  add force inputs to BBB code
+  import the gate code and the IK
+  import the joystick code
+  enforce speed ramps at all times
+  port SoftStopAwareSpeedManager to python, integrate
+  check out the pyode code, adapt it?
+  make E stop
+  write server code
+
