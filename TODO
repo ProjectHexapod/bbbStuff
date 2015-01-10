@@ -16,6 +16,7 @@ Hardware:
   Get server running
   Figure out requirements and design engine controller Beaglebone
     - pump bypass valves
+      - two PWM's 
     - hydraulic temperature sensor
     - engine temperature sensor
     - tachometer
