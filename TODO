@@ -2,19 +2,42 @@ Firmware:
   rename all the device overlays
 
 Hardware:
-  add high voltage current sensing to incorporate the pressure sensors
-    - Pressure sensors: 
-      - Supply pressure
-      - each side of piston for both joints
-      - return pressure
-  add voltage divider so AIN can monitor source voltage  LOW
-  add 3rd solenoid driver channel (4th? Do we need to support dual yaw piston option?)
-  add 3rd analog port for string pots
-  look into 12V switching regulator for solenoids and pressure sensors
-  choose cables and connectors
-  choose enclosures
-  update schematic and pcb layout
-  bypass ports for manual control
+  System level:
+    - Design engine control board
+    - Port documentation to wiki
+    - Determine whether to use central 12V reg or chip on CoS
+    - 
+
+  Cape of Stomping Redesign
+    - Pick power connectors
+    - Pick String Pot connectors
+    - Pick 12V 5A switching regulator (if it's going on the cape)
+
+  Cape of Stomping Schematic updates
+    - Update power connector part
+    - Update SPI connector part
+    - Switch to 5 pair SPI
+    - Update string pot connector part
+    - Switch to single 12pin connector for solenoid valves
+
+  Cape of Stomping PCB updates
+    - Create footprint for power connector
+    - Create footprint for SPI connector
+    - Create footprint for string pot connector
+    - Create footprint for solenoid valves connector
+    - Redo layout
+    - Resize board if necessary. Check enclosure size
+    - Redo routing
+    - Make sure ports are labeled
+
+  Magnetic Encoder board PCB updates
+    - Make board 1.5" x 1.5"
+    - Move sensor to dead center
+    - Add mounting holes
+    - Change to 5 pair connector
+    - Update routing
+    - Submit PCB order
+    - Submit parts order 
 
 
 Software:
@@ -35,4 +58,5 @@ Software:
   check out the pyode code, adapt it?
   make E stop
   write server code
+  Make sure dithering is implemented
 
