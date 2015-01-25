@@ -2,6 +2,7 @@ Firmware:
   rename all the device overlays
 
 Hardware:
+  Ignition switch
   Design engine control board
     - pump bypass valves
       - two PWM's 
@@ -9,6 +10,8 @@ Hardware:
     - engine temperature sensor
     - tachometer
     - alternator control???
+    - Throttle servo
+    - ignition
   Port documentation to wiki
   Determine whether to use central 12V reg or chip on CoS
   3D print magnetic encoder enclosures
