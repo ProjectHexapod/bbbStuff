@@ -35,7 +35,6 @@ Hardware:
     - Update SPI connector part
     - Switch to 5 pair SPI
     - Update string pot connector part
-    - Switch to single 12pin connector for solenoid valves
 
   Cape of Stomping PCB updates
     - Create footprint for power connector
