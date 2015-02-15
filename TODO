@@ -27,13 +27,10 @@ Hardware:
 
   Cape of Stomping Redesign
     - Pick power connectors
-    - Pick String Pot connectors
     - Pick 12V 5A switching regulator (if it's going on the cape)
 
   Cape of Stomping Schematic updates
     - Update power connector part
-    - Update SPI connector part
-    - Switch to 5 pair SPI
 
   Cape of Stomping PCB updates
     - Create footprint for power connector
