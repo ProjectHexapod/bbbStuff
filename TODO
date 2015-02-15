@@ -34,7 +34,6 @@ Hardware:
     - Update power connector part
     - Update SPI connector part
     - Switch to 5 pair SPI
-    - Update string pot connector part
 
   Cape of Stomping PCB updates
     - Create footprint for power connector
