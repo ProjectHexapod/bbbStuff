@@ -26,16 +26,18 @@ Hardware:
     - USB keyboard input to main computer?
 
   Cape of Stomping Redesign
-    - Pick 12V 5A switching regulator (if it's going on the cape)
+    - Done!
 
   Cape of Stomping Schematic updates
-    - Update power connector part
+    - Add 12V switching regulator
 
   Cape of Stomping PCB updates
     - Create footprint for power connector
     - Create footprint for SPI connector
     - Create footprint for string pot connector
     - Create footprint for solenoid valves connector
+    - Add 12V regulator
+       - Refer to www.ti.com/lit/ds/symlink/lm2679.pdf for design considerations
     - Redo layout
     - Resize board if necessary. Check enclosure size
     - Redo routing
