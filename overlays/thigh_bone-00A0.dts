@@ -20,10 +20,10 @@
     /* the pin header uses */
     "P8.13",    /* pwm: ehrpwm2B - */
     "P8.19",    /* pwm: ehrpwm2A - */
-    "P9.14",    /* pwm: ehrpwm1A - Thigh down */
-    "P9.16",    /* pwm: ehrpwm1B - Thigh up */
-    "P9.21",    /* pwm: ehrpwm0B - Knee out */
-    "P9.22",    /* pwm: ehrpwm0A - Knee in */
+    "P9.14",    /* pwm: ehrpwm1A - thigh down */
+    "P9.16",    /* pwm: ehrpwm1B - thigh up */
+    "P9.21",    /* pwm: ehrpwm0B - knee out */
+    "P9.22",    /* pwm: ehrpwm0A - knee in */
     "P9.39",    /* AIN0 */
     "P9.40",    /* AIN1 */
     "P9.37",    /* AIN2 */
@@ -169,7 +169,7 @@
   fragment@13 {
     target = <&ocp>;
     __overlay__ {
-      pwm_test_P9_21 {  // knee black
+      pwm_knee_out {  // knee black
         compatible  = "pwm_test";
         pwms    = <&ehrpwm0 1 5000000 1>;
         pwm-names   = "PWM_P9_21";
@@ -196,7 +196,7 @@
   fragment@15 {
     target = <&ocp>;
     __overlay__ {
-      pwm_test_P9_22 {
+      pwm_knee_in {
         compatible  = "pwm_test";
         pwms    = <&ehrpwm0 0 5000000 1>;
         pwm-names   = "PWM_P9_22";
@@ -248,7 +248,7 @@
   fragment@19 {
     target = <&ocp>;
     __overlay__ {
-      pwm_test_P9_16 {
+      pwm_thigh_up {
         compatible  = "pwm_test";
         pwms    = <&ehrpwm1 1 5000000 1>;
         pwm-names   = "PWM_P9_16";
