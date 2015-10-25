@@ -2,6 +2,7 @@ Firmware:
   rename all the device overlays
 
 Hardware:
+  Determine why current feedback isn't working
   Ignition switch
   Design engine control board
     - pump bypass valves
