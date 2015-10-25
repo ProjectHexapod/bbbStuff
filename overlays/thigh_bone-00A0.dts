@@ -19,20 +19,31 @@
   exclusive-use =
     /* the pin header uses */
     "P8.13",    /* pwm: ehrpwm2B - */
+    "P8.14",    /* gpio: M2 Status Flag - */
+    "P8.15",    /* gpio: M2 D1 - */
+    "P8.17",    /* gpio: enable - */
     "P8.19",    /* pwm: ehrpwm2A - */
+
+    "P9.13",    /* gpio: M1 Status Flag */
+    "P9.15",    /* gpio: M1 D1 */
     "P9.21",    /* pwm: ehrpwm0B - knee out */
     "P9.22",    /* pwm: ehrpwm0A - knee in */
+    "P9.33",    /* AIN4: strpot 1 */
+    "P9.35",    /* AIN6: strpot 2 */
+    "P9.36",    /* AIN5: compliant link */
+    "P9.37",    /* AIN2: M1 feedback */
+    "P9.38",    /* AIN3: M2 feedback */
     "P9.39",    /* AIN0 */
     "P9.40",    /* AIN1 */
-    "P9.37",    /* AIN2 */
-    "P9.38",    /* AIN3 */
-    "P9.33",    /* AIN4 */
-    "P9.36",    /* AIN5 */
-    "P9.35",    /* AIN6 */
 
     
     /* the hardware IP uses */
     "tscadc",
+    "gpio0_26",
+    "gpio0_27",
+    "gpio0_31",
+    "gpio1_15",
+    "gpio1_16",
     "ehrpwm0A",
     "ehrpwm0B",
     "ehrpwm2A",
@@ -47,12 +58,21 @@
           0x150  0x3
         >;
       };
-    };
-    pwm2_pins: pinmux_pwm2_pins {
-      pinctrl-single,pins = <
-        0x024  0x4
-        0x020  0x4
-      >;
+      pwm2_pins: pinmux_pwm2_pins {
+        pinctrl-single,pins = <
+          0x024  0x4
+          0x020  0x4
+        >;
+      };
+      gpio_pins: pinmux_gpio_pins {
+        pinctrl-single,pins = <
+          0x074 0x2f /* P9.13 input, no pull resistor  TODO: reconsider the lack of pull */
+          0x028 0x2f /* P8.14 input, no pull resistor  TODO: reconsider the lack of pull */
+          0x040 0x7  /* P9.15 output */
+          0x03C 0x7  /* P8.15 output */
+          0x02C 0x7  /* P8.17 output */
+        >;
+      };
     };
   };
 
@@ -97,5 +117,4 @@
       status = "okay";
     };
   };
-
 };

@@ -20,7 +20,6 @@ class PIDController(object):
     self.i_accum += self.ki * error * dt
     return self.kp * error + self.i_accum + self.kd * d_error
 
-    
 
 if __name__ == "__main__":
   from docopt import docopt
