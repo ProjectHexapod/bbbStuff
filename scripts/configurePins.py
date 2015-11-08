@@ -45,7 +45,9 @@ def pwmConfigured(pwmroot):
 def configurePwm(pwmroot, period):
   configurePwmChip(pwmroot, "pwmchip0", period)
   configurePwmChip(pwmroot, "pwmchip2", period)
-
+  with open("/sys/class/gpio/gpio27/value", "w") as f:
+    f.write("1")
+    
 def configurePwmChip(pwmroot, chip, period):
   if os.path.exists(os.path.join(pwmroot, chip)):
     configurePwmChannel(pwmroot, chip, "0", period)
@@ -60,7 +62,7 @@ def configurePwmChannel(pwmroot, chip, channelNo, period):
   with open(os.path.join(pwmroot, chip, channel, "period"), "w") as f:
     f.write(period)
   with open(os.path.join(pwmroot, chip, channel, "duty_cycle"), "w") as f:
-    f.write(period)
+    f.write("0")
   with open(os.path.join(pwmroot, chip, channel, "enable"), "w") as f:
     f.write("1")
 
@@ -86,12 +88,10 @@ if __name__ == '__main__':
   while not pwmChipsAvailable(pwmroot) and time.time() - overlayWaitTimerStart < 2:
     time.sleep(0.1)
 
-  if not pwmConfigured(pwmroot):
-    configurePwm(pwmroot, args["--pwmperiod"])
-
   gpioroot = args["--gpioroot"]
   configureGpio(gpioroot, "26", "in")  # P8_14
   configureGpio(gpioroot, "27", "out")  # P8_17
   configureGpio(gpioroot, "31", "in")  # P9_13
-  configureGpio(gpioroot, "47", "out")  # P8_15
-  configureGpio(gpioroot, "48", "out")  # P9_15
+
+  if not pwmConfigured(pwmroot):
+    configurePwm(pwmroot, args["--pwmperiod"])
