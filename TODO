@@ -1,5 +1,10 @@
 Firmware:
-  rename all the device overlays
+  create symlinks to PWM’s
+  create scripts to configure beagle bones
+    - move symlinks to correct location
+    - move systemd timer startup scripts (configurePins.service and configurePins.timer) to /etc/systemd/system/
+    - set up IP address
+  Image Beaglebones
 
 Hardware:
   Determine why current feedback isn't working
