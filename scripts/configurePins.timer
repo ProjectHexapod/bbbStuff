@@ -1,0 +1,9 @@
+[Unit]
+Description=Runs configurePins.py on startup
+
+[Timer]
+OnBootSec=10sec
+Unit=configurePins.service
+
+[Install]
+WantedBy=basic.target
