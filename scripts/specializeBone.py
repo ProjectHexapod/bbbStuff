@@ -28,4 +28,4 @@ def disableNtpd():
 
 if __name__ == '__main__':
   from docopt import docopt
-  args = docopt(__doc__, version="Pin Configurationist v0.1")
+  args = docopt(__doc__, version="Bone Specializer v0.1")

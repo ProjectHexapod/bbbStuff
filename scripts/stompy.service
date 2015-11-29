@@ -1,0 +1,12 @@
+[Unit]
+Description=Configure the machine to be stompy.
+Wants=network.target
+After=network-online.target systemd-networkd.service
+
+[Service]
+Type=Idle
+ExecStart=/root/bbbStuff/scripts/startup
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target

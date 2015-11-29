@@ -1,0 +1,6 @@
+#!/bin/bash
+
+sleep 30
+#systemctl stop dhcpd4
+systemctl start dhcpd4
+python2 /root/bbbStuff/scripts/configurePins.py 
