@@ -1,6 +1,0 @@
-[Unit]
-Description="Configure the PWM pins for the BeagleBone on startup"
-
-[Service]
-Type=oneshot
-ExecStart=/root/bbbStuff/scripts/configurePins.sh
