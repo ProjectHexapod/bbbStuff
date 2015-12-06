@@ -5,6 +5,7 @@ Firmware:
     - move systemd timer startup scripts (configurePins.service and configurePins.timer) to /etc/systemd/system/
     - set up IP address
   Image Beaglebones
+  
 
 Hardware:
   Determine why current feedback isn't working
