@@ -1,6 +1,9 @@
 #!/bin/bash
 
 sleep 30
-#systemctl stop dhcpd4
-systemctl start dhcpd4
+
+ip -4 addr | grep -P "10\.1\.1\.10" -q
+if [ $? -eq 0]; then
+  systemctl start dhcpd4
+fi
 python2 /root/bbbStuff/scripts/configurePins.py 

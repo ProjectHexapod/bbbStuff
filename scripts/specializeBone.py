@@ -20,10 +20,8 @@ def changeHostname(name):
 def changeIpAddress(ip):
   pass
 
-def disableDhcpd():
-  pass
-
 def disableNtpd():
+  # TODO: write this once we get NTP going
   pass
 
 if __name__ == '__main__':
