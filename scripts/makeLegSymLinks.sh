@@ -18,4 +18,4 @@ ln -s /sys/devices/platform/ocp/44e0d000.tscadc/TI-am335x-adc/iio:device0/in_vol
 ln -s /sys/devices/platform/ocp/44e0d000.tscadc/TI-am335x-adc/iio:device0/in_voltage0_raw /mnt/hardware/ain_battery_voltage
 
 # Make stompy user the owner of symlinks
-chown -r stompy:stompy /mnt/hardware
+chown -R stompy:stompy /mnt/hardware
