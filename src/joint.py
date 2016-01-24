@@ -7,7 +7,7 @@ class Joint(object):
               , name
               , axis
               , centerOfRotationOffset
-              , coordinateRotation = makeRotationMatrix(0., 0., 0.)):
+              , coordinateRotation = makeXYZRotationMatrix(0., 0., 0.)):
     self.axis = axis
     self.name = name
     self.centerOfRotationOffset = centerOfRotationOffset
