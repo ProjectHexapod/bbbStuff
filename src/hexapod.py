@@ -35,7 +35,7 @@ class Hexapod(object):
     yaw = Joint( "hipYaw"
                , aboutZ
                , hipCenterOfRotation
-               , makeRotationMatrix(0., 0., zRotation))
+               , makeXYZRotationMatrix(0., 0., zRotation))
     yaw.setChild(self.makeHip())
     return yaw
 
@@ -74,19 +74,19 @@ class Hexapod(object):
     top = Joint( "compliantTop"
                , aboutY
                , np.array([0.47153, 0., compliantZ])  # m
-               , makeRotationMatrix(0., -pi/2., 0.))
+               , makeXYZRotationMatrix(0., -pi/2., 0.))
     top.setParent(knee)
     top.setChild(self.makeCompliant())
     bottom = Joint( "compliantBottom"
                   , aboutY
                   , np.array([0.77633, 0., compliantZ])  # m
-                  , makeRotationMatrix(0., -pi/2., 0.))
+                  , makeXYZRotationMatrix(0., -pi/2., 0.))
     bottom.setParent(knee)
     bottom.setChild(self.makeSterileCompliant())
     shinBot = Joint( "shinBottom"
                    , aboutY
                    , np.array([0.10013, 0., 0.])  # m
-                   , makeRotationMatrix(0., pi/2., 0.))
+                   , makeXYZRotationMatrix(0., pi/2., 0.))
     shinBot.setParent(knee.children[1].child)
     shinBot.setChild(knee.children[0].child.children[0].child)
     return knee
@@ -96,7 +96,7 @@ class Hexapod(object):
     joint = Joint( "shinTop"
                  , aboutY
                  , np.array([0.10013, 0., 0.])  # m
-                 , makeRotationMatrix(0., pi/2., 0.))
+                 , makeXYZRotationMatrix(0., pi/2., 0.))
     joint.setParent(comp)
     joint.setChild(self.makeShin())
     return comp
