@@ -42,11 +42,11 @@ if __name__ == '__main__':
   if args["--leg"]:
     changeHostname("leg" + args["--leg"])
     changeIpAddress(getIpForLeg(args["--leg"]))
-    subprocess.call(["~/scripts/makeLegSymLinks.sh"])
+    subprocess.call(["/home/stompy/bbbStuff/scripts/makeLegSymLinks.sh"])
   elif args["--hip"]:
     changeHostname("hip" + args["--hip"])
     changeIpAddress(getIpForHip(args["--hip"]))
-    subprocess.call(["~/scripts/makeHipSymLinks.sh"])
+    subprocess.call(["/home/stompy/bbbStuff/scripts/makeHipSymLinks.sh"])
   elif args["--console"]:
     changeHostname("centralcontrol")
     changeIpAddress("10.1.1.10/24")
