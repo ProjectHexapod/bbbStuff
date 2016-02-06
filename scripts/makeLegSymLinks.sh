@@ -2,6 +2,7 @@
 
 # Create folder for symlinks
 mkdir /mnt/hardware
+rm /mnt/hardware/*
 
 # PWMs
 ln -s /sys/class/pwm/pwmchip2/pwm1/duty_cycle /mnt/hardware/pwm_knee_extend 

@@ -1,11 +1,11 @@
 [Unit]
-Description=Configure the machine to be stompy.
+Description=Stompy control software
 Wants=network.target
 After=network-online.target systemd-networkd.service
 
 [Service]
 Type=Idle
-ExecStart=/root/bbbStuff/scripts/startup
+ExecStart=/home/stompy/bbbStuff/scripts/startup
 KillSignal=SIGINT
 
 [Install]
