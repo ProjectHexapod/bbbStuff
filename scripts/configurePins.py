@@ -15,8 +15,10 @@ Options:
   # --ainroot=<ainroot>   The location of the AIN raw files.  [default: /sys/devices/platform/ocp/44e0d000.tscadc/TI-am335x-adc/iio:device0]
 
 import logging
+import glob
+import grp
 import os
-import subprocess
+import pwd
 import time
 
 logging.info("Starting logger...")
@@ -49,7 +51,7 @@ def configurePwm(pwmroot, period):
   with open("/sys/class/gpio/gpio27/value", "w") as f:
     f.write("1")
   # make the PWMs writeable
-  subprocess.call(["chown", "stompy:stompy", "/sys/devices/platform/ocp/*epwmss/*ehrpwm/pwm/pwmchip?/pwm?/duty_cycle"], shell=True)
+  chownFiles("/sys/devices/platform/ocp/*epwmss/*ehrpwm/pwm/pwmchip?/pwm?/duty_cycle"])
     
 def configurePwmChip(pwmroot, chip, period):
   if os.path.exists(os.path.join(pwmroot, chip)):
@@ -76,6 +78,12 @@ def configureGpio(gpioroot, gpioNo, direction):
   with open(os.path.join(gpioroot, "gpio" + gpioNo, "direction"), "w") as f:
     f.write(direction)
 
+def chownFiles(nameGlob, user="stompy", group="stompy"):
+  uid = pwd.getpwnam(user).pw_uid
+  gid = grp.getgrnam(group).gr_gid
+  for path in glob.glob(nameGlob):
+    os.chown(path, uid, gid)
+
 if __name__ == '__main__':
   from docopt import docopt
   args = docopt(__doc__, version="Pin Configurationist v0.1")
@@ -96,7 +104,7 @@ if __name__ == '__main__':
   configureGpio(gpioroot, "27", "out")  # P8_17
   configureGpio(gpioroot, "31", "in")  # P9_13
   # make the GPIOs writeable
-  subprocess.call(["chown", "stompy:stompy", "/sys/devices/platform/ocp/*gpio/gpio/gpio[0-9]*/value"], shell=True)
+  chownFiles("/sys/devices/platform/ocp/*gpio/gpio/gpio[0-9]*/value"])
 
   if not pwmConfigured(pwmroot):
     configurePwm(pwmroot, args["--pwmperiod"])
