@@ -51,7 +51,7 @@ def configurePwm(pwmroot, period):
   with open("/sys/class/gpio/gpio27/value", "w") as f:
     f.write("1")
   # make the PWMs writeable
-  chownFiles("/sys/devices/platform/ocp/*epwmss/*ehrpwm/pwm/pwmchip?/pwm?/duty_cycle"])
+  chownFiles("/sys/devices/platform/ocp/*epwmss/*ehrpwm/pwm/pwmchip?/pwm?/duty_cycle")
     
 def configurePwmChip(pwmroot, chip, period):
   if os.path.exists(os.path.join(pwmroot, chip)):
@@ -104,7 +104,7 @@ if __name__ == '__main__':
   configureGpio(gpioroot, "27", "out")  # P8_17
   configureGpio(gpioroot, "31", "in")  # P9_13
   # make the GPIOs writeable
-  chownFiles("/sys/devices/platform/ocp/*gpio/gpio/gpio[0-9]*/value"])
+  chownFiles("/sys/devices/platform/ocp/*gpio/gpio/gpio[0-9]*/value")
 
   if not pwmConfigured(pwmroot):
     configurePwm(pwmroot, args["--pwmperiod"])
