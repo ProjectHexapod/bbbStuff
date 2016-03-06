@@ -16,6 +16,7 @@ Options:
 
 import logging
 import os
+import subprocess
 import time
 
 logging.info("Starting logger...")
@@ -47,6 +48,8 @@ def configurePwm(pwmroot, period):
   configurePwmChip(pwmroot, "pwmchip2", period)
   with open("/sys/class/gpio/gpio27/value", "w") as f:
     f.write("1")
+  # make the PWMs writeable
+  subprocess.call(["chown", "stompy:stompy", "/sys/devices/platform/ocp/*epwmss/*ehrpwm/pwm/pwmchip?/pwm?/duty_cycle"])
     
 def configurePwmChip(pwmroot, chip, period):
   if os.path.exists(os.path.join(pwmroot, chip)):
@@ -92,6 +95,8 @@ if __name__ == '__main__':
   configureGpio(gpioroot, "26", "in")  # P8_14
   configureGpio(gpioroot, "27", "out")  # P8_17
   configureGpio(gpioroot, "31", "in")  # P9_13
+  # make the GPIOs writeable
+  subprocess.call(["chown", "stompy:stompy", "/sys/devices/platform/ocp/*gpio/gpio/gpio[0-9]*/value"])
 
   if not pwmConfigured(pwmroot):
     configurePwm(pwmroot, args["--pwmperiod"])
