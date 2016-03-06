@@ -2,12 +2,13 @@
 
 # Create folder for symlinks
 mkdir /mnt/hardware
+rm /mnt/hardware/*
 
 # PWMs
-ln -s /sys/class/pwm/pwmchip2/pwm1/duty_cycle /mnt/hardware/pwm_rleg_backwards 
-ln -s /sys/class/pwm/pwmchip2/pwm0/duty_cycle /mnt/hardware/pwm_rleg_forwards 
-ln -s /sys/class/pwm/pwmchip0/pwm0/duty_cycle /mnt/hardware/pwm_lleg_forwards 
-ln -s /sys/class/pwm/pwmchip0/pwm1/duty_cycle /mnt/hardware/pwm_lleg_backwards 
+ln -s /sys/devices/platform/ocp/48304000.epwmss/48304200.ehrpwm/pwm/pwmchip2/pwm1/duty_cycle /mnt/hardware/pwm_rleg_backwards
+ln -s /sys/devices/platform/ocp/48304000.epwmss/48304200.ehrpwm/pwm/pwmchip2/pwm0/duty_cycle /mnt/hardware/pwm_rleg_forwards
+ln -s /sys/devices/platform/ocp/48300000.epwmss/48300200.ehrpwm/pwm/pwmchip0/pwm0/duty_cycle /mnt/hardware/pwm_lleg_forwards
+ln -s /sys/devices/platform/ocp/48300000.epwmss/48300200.ehrpwm/pwm/pwmchip0/pwm1/duty_cycle /mnt/hardware/pwm_lleg_backwards
 
 # Analog inputs
 ln -s /sys/devices/platform/ocp/44e0d000.tscadc/TI-am335x-adc/iio:device0/in_voltage4_raw /mnt/hardware/ain_lleg_str_pot   

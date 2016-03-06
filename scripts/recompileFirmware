@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cp ~/bbbStuff/overlays/thigh_bone-00A0.dts /lib/firmware
+cp ../overlays/thigh_bone-00A0.dts /lib/firmware
 cd /lib/firmware
 rm thigh_bone-00A0.dtbo
 dtc -O dtb -o thigh_bone-00A0.dtbo -b 0 -@ thigh_bone-00A0.dts 
