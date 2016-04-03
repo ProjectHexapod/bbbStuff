@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/stompy/my_bbbStuff/catkin_ws/devel/setup.sh
