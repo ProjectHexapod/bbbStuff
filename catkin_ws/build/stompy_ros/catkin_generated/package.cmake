@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "stompy_ros")
+set(stompy_ros_MAINTAINER "stompy <stompy@todo.todo>")
+set(stompy_ros_DEPRECATED "")
+set(stompy_ros_VERSION "0.0.0")
+set(stompy_ros_BUILD_DEPENDS "rospy")
+set(stompy_ros_RUN_DEPENDS "rospy")
+set(stompy_ros_BUILDTOOL_DEPENDS "catkin")
