@@ -1,8 +1,0 @@
-prefix=/home/stompy/my_bbbStuff/catkin_ws/devel
-
-Name: stompy_ros
-Description: Description of stompy_ros
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/stompy/my_bbbStuff/catkin_ws/devel/lib 
-Requires: 

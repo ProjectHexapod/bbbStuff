@@ -1,2 +1,0 @@
-stompy_ros
--DCATKIN_DEVEL_PREFIX=/home/stompy/my_bbbStuff/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/stompy/my_bbbStuff/catkin_ws/install -G Unix Makefiles
