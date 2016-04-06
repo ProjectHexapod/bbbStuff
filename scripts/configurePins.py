@@ -100,9 +100,18 @@ if __name__ == '__main__':
     time.sleep(0.1)
 
   gpioroot = args["--gpioroot"]
-  configureGpio(gpioroot, "26", "in")  # P8_14
-  configureGpio(gpioroot, "27", "out")  # P8_17
-  configureGpio(gpioroot, "31", "in")  # P9_13
+
+  # GPIO number is 32*chip number + offset 
+  # e.g. P8_17 is on GPIO0_27: 32*0 + 27 = 27
+  configureGpio(gpioroot, "26", "in")   # P8_14 # M2_statusflag
+  configureGpio(gpioroot, "27", "out")  # P8_17 # enable pin
+  configureGpio(gpioroot, "31", "in")   # P9_13 # M1_statusFlag
+  configureGpio(gpioroot, "5", "in")    # P9_17 # DIP switch0
+  configureGpio(gpioroot, "4", "in")    # P9_18 # DIP switch1
+  configureGpio(gpioroot, "13", "in")   # P9_19 # DIP switch2
+  configureGpio(gpioroot, "12", "in")   # P9_20 # DIP switch3
+  configureGpio(gpioroot, "49", "in")   # P9_23 # DIP switch4
+  configureGpio(gpioroot, "15", "in")   # P9_24 # DIP switch5
   # make the GPIOs writeable
   chownFiles("/sys/devices/platform/ocp/*gpio/gpio/gpio[0-9]*/value")
 
